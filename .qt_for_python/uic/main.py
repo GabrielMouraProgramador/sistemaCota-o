@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(940, 560)
+        MainWindow.resize(942, 711)
         MainWindow.setMinimumSize(QSize(940, 560))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -1002,20 +1002,20 @@ class Ui_MainWindow(object):
         self.stackedWidget = QStackedWidget(self.pagesContainer)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setStyleSheet(u"background: transparent;")
-        self.home = QWidget()
-        self.home.setObjectName(u"home")
-        self.home.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
+        self.Inicio = QWidget()
+        self.Inicio.setObjectName(u"Inicio")
+        self.Inicio.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
 "background-position: center;\n"
 "background-repeat: no-repeat;")
-        self.stackedWidget.addWidget(self.home)
-        self.widgets = QWidget()
-        self.widgets.setObjectName(u"widgets")
-        self.widgets.setStyleSheet(u"b")
-        self.verticalLayout = QVBoxLayout(self.widgets)
+        self.stackedWidget.addWidget(self.Inicio)
+        self.BuscarCotacao = QWidget()
+        self.BuscarCotacao.setObjectName(u"BuscarCotacao")
+        self.BuscarCotacao.setStyleSheet(u"b")
+        self.verticalLayout = QVBoxLayout(self.BuscarCotacao)
         self.verticalLayout.setSpacing(10)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
-        self.row_1 = QFrame(self.widgets)
+        self.row_1 = QFrame(self.BuscarCotacao)
         self.row_1.setObjectName(u"row_1")
         self.row_1.setMaximumSize(QSize(1600, 100))
         self.row_1.setFrameShape(QFrame.StyledPanel)
@@ -1036,6 +1036,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_2 = QLineEdit(self.row_1)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lineEdit_2.setEnabled(False)
 
         self.horizontalLayout_15.addWidget(self.lineEdit_2)
 
@@ -1046,6 +1047,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_10 = QLineEdit(self.row_1)
         self.lineEdit_10.setObjectName(u"lineEdit_10")
+        self.lineEdit_10.setEnabled(False)
 
         self.horizontalLayout_15.addWidget(self.lineEdit_10)
 
@@ -1080,6 +1082,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_3 = QLineEdit(self.row_1)
         self.lineEdit_3.setObjectName(u"lineEdit_3")
+        self.lineEdit_3.setEnabled(False)
 
         self.horizontalLayout_20.addWidget(self.lineEdit_3)
 
@@ -1090,6 +1093,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_6 = QLineEdit(self.row_1)
         self.lineEdit_6.setObjectName(u"lineEdit_6")
+        self.lineEdit_6.setEnabled(False)
 
         self.horizontalLayout_20.addWidget(self.lineEdit_6)
 
@@ -1112,6 +1116,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_4 = QLineEdit(self.row_1)
         self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.lineEdit_4.setEnabled(False)
         self.lineEdit_4.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_16.addWidget(self.lineEdit_4)
@@ -1144,6 +1149,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_8 = QLineEdit(self.row_1)
         self.lineEdit_8.setObjectName(u"lineEdit_8")
+        self.lineEdit_8.setEnabled(False)
         self.lineEdit_8.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_10.addWidget(self.lineEdit_8)
@@ -1163,6 +1169,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_5 = QLineEdit(self.row_1)
         self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.lineEdit_5.setEnabled(False)
         self.lineEdit_5.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_8.addWidget(self.lineEdit_5)
@@ -1179,6 +1186,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_7 = QLineEdit(self.row_1)
         self.lineEdit_7.setObjectName(u"lineEdit_7")
+        self.lineEdit_7.setEnabled(False)
         self.lineEdit_7.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_9.addWidget(self.lineEdit_7)
@@ -1192,8 +1200,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.row_1)
 
-        self.frame_2 = QFrame(self.widgets)
+        self.frame_2 = QFrame(self.BuscarCotacao)
         self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setEnabled(False)
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
         self.verticalLayout_17 = QVBoxLayout(self.frame_2)
@@ -1212,7 +1221,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -272, 790, 659))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 792, 659))
         self.scrollAreaWidgetContents.setStyleSheet(u" QScrollBar:vertical {\n"
 "	border: none;\n"
 "    background: rgb(52, 59, 72);\n"
@@ -1247,6 +1256,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_175.setObjectName(u"horizontalLayout_175")
         self.lineEdit_223 = QLineEdit(self.frame_7)
         self.lineEdit_223.setObjectName(u"lineEdit_223")
+        self.lineEdit_223.setEnabled(False)
         self.lineEdit_223.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_223.setStyleSheet(u"background-color: rgb(195, 159, 0);")
         self.lineEdit_223.setEchoMode(QLineEdit.Normal)
@@ -1268,6 +1278,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_224 = QLineEdit(self.frame_7)
         self.lineEdit_224.setObjectName(u"lineEdit_224")
+        self.lineEdit_224.setEnabled(False)
         self.lineEdit_224.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_177.addWidget(self.lineEdit_224)
@@ -1285,6 +1296,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_225 = QLineEdit(self.frame_7)
         self.lineEdit_225.setObjectName(u"lineEdit_225")
+        self.lineEdit_225.setEnabled(False)
         self.lineEdit_225.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_178.addWidget(self.lineEdit_225)
@@ -1307,6 +1319,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_226 = QLineEdit(self.frame_7)
         self.lineEdit_226.setObjectName(u"lineEdit_226")
+        self.lineEdit_226.setEnabled(False)
         self.lineEdit_226.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_179.addWidget(self.lineEdit_226)
@@ -1324,6 +1337,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_227 = QLineEdit(self.frame_7)
         self.lineEdit_227.setObjectName(u"lineEdit_227")
+        self.lineEdit_227.setEnabled(False)
         self.lineEdit_227.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_180.addWidget(self.lineEdit_227)
@@ -1341,6 +1355,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_228 = QLineEdit(self.frame_7)
         self.lineEdit_228.setObjectName(u"lineEdit_228")
+        self.lineEdit_228.setEnabled(False)
         self.lineEdit_228.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_181.addWidget(self.lineEdit_228)
@@ -1363,6 +1378,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_229 = QLineEdit(self.frame_7)
         self.lineEdit_229.setObjectName(u"lineEdit_229")
+        self.lineEdit_229.setEnabled(False)
         self.lineEdit_229.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_182.addWidget(self.lineEdit_229)
@@ -1380,6 +1396,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_230 = QLineEdit(self.frame_7)
         self.lineEdit_230.setObjectName(u"lineEdit_230")
+        self.lineEdit_230.setEnabled(False)
         self.lineEdit_230.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_183.addWidget(self.lineEdit_230)
@@ -1425,6 +1442,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_181.setObjectName(u"horizontalLayout_181")
         self.lineEdit_231 = QLineEdit(self.frame_8)
         self.lineEdit_231.setObjectName(u"lineEdit_231")
+        self.lineEdit_231.setEnabled(False)
         self.lineEdit_231.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_231.setStyleSheet(u"background-color: rgb(82, 153, 0);")
         self.lineEdit_231.setEchoMode(QLineEdit.Normal)
@@ -1446,6 +1464,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_232 = QLineEdit(self.frame_8)
         self.lineEdit_232.setObjectName(u"lineEdit_232")
+        self.lineEdit_232.setEnabled(False)
         self.lineEdit_232.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_183.addWidget(self.lineEdit_232)
@@ -1463,6 +1482,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_233 = QLineEdit(self.frame_8)
         self.lineEdit_233.setObjectName(u"lineEdit_233")
+        self.lineEdit_233.setEnabled(False)
         self.lineEdit_233.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_184.addWidget(self.lineEdit_233)
@@ -1485,6 +1505,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_234 = QLineEdit(self.frame_8)
         self.lineEdit_234.setObjectName(u"lineEdit_234")
+        self.lineEdit_234.setEnabled(False)
         self.lineEdit_234.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_185.addWidget(self.lineEdit_234)
@@ -1502,6 +1523,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_235 = QLineEdit(self.frame_8)
         self.lineEdit_235.setObjectName(u"lineEdit_235")
+        self.lineEdit_235.setEnabled(False)
         self.lineEdit_235.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_186.addWidget(self.lineEdit_235)
@@ -1519,6 +1541,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_236 = QLineEdit(self.frame_8)
         self.lineEdit_236.setObjectName(u"lineEdit_236")
+        self.lineEdit_236.setEnabled(False)
         self.lineEdit_236.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_187.addWidget(self.lineEdit_236)
@@ -1541,6 +1564,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_237 = QLineEdit(self.frame_8)
         self.lineEdit_237.setObjectName(u"lineEdit_237")
+        self.lineEdit_237.setEnabled(False)
         self.lineEdit_237.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_188.addWidget(self.lineEdit_237)
@@ -1558,6 +1582,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_238 = QLineEdit(self.frame_8)
         self.lineEdit_238.setObjectName(u"lineEdit_238")
+        self.lineEdit_238.setEnabled(False)
         self.lineEdit_238.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_189.addWidget(self.lineEdit_238)
@@ -1596,6 +1621,7 @@ class Ui_MainWindow(object):
 
         self.frame_5 = QFrame(self.frame_3)
         self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setEnabled(False)
         self.frame_5.setStyleSheet(u"")
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
@@ -1613,6 +1639,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_187.setObjectName(u"horizontalLayout_187")
         self.lineEdit_239 = QLineEdit(self.frame_9)
         self.lineEdit_239.setObjectName(u"lineEdit_239")
+        self.lineEdit_239.setEnabled(False)
         self.lineEdit_239.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_239.setStyleSheet(u"background-color: rgb(95, 85, 149);")
         self.lineEdit_239.setEchoMode(QLineEdit.Normal)
@@ -1634,6 +1661,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_240 = QLineEdit(self.frame_9)
         self.lineEdit_240.setObjectName(u"lineEdit_240")
+        self.lineEdit_240.setEnabled(False)
         self.lineEdit_240.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_189.addWidget(self.lineEdit_240)
@@ -1651,6 +1679,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_241 = QLineEdit(self.frame_9)
         self.lineEdit_241.setObjectName(u"lineEdit_241")
+        self.lineEdit_241.setEnabled(False)
         self.lineEdit_241.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_190.addWidget(self.lineEdit_241)
@@ -1673,6 +1702,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_242 = QLineEdit(self.frame_9)
         self.lineEdit_242.setObjectName(u"lineEdit_242")
+        self.lineEdit_242.setEnabled(False)
         self.lineEdit_242.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_191.addWidget(self.lineEdit_242)
@@ -1690,6 +1720,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_243 = QLineEdit(self.frame_9)
         self.lineEdit_243.setObjectName(u"lineEdit_243")
+        self.lineEdit_243.setEnabled(False)
         self.lineEdit_243.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_192.addWidget(self.lineEdit_243)
@@ -1707,6 +1738,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_244 = QLineEdit(self.frame_9)
         self.lineEdit_244.setObjectName(u"lineEdit_244")
+        self.lineEdit_244.setEnabled(False)
         self.lineEdit_244.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_193.addWidget(self.lineEdit_244)
@@ -1729,6 +1761,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_245 = QLineEdit(self.frame_9)
         self.lineEdit_245.setObjectName(u"lineEdit_245")
+        self.lineEdit_245.setEnabled(False)
         self.lineEdit_245.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_194.addWidget(self.lineEdit_245)
@@ -1746,6 +1779,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_246 = QLineEdit(self.frame_9)
         self.lineEdit_246.setObjectName(u"lineEdit_246")
+        self.lineEdit_246.setEnabled(False)
         self.lineEdit_246.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_195.addWidget(self.lineEdit_246)
@@ -1791,6 +1825,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_193.setObjectName(u"horizontalLayout_193")
         self.lineEdit_247 = QLineEdit(self.frame_10)
         self.lineEdit_247.setObjectName(u"lineEdit_247")
+        self.lineEdit_247.setEnabled(False)
         self.lineEdit_247.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_247.setStyleSheet(u"background-color: rgb(204, 85, 179);")
         self.lineEdit_247.setEchoMode(QLineEdit.Normal)
@@ -1812,6 +1847,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_248 = QLineEdit(self.frame_10)
         self.lineEdit_248.setObjectName(u"lineEdit_248")
+        self.lineEdit_248.setEnabled(False)
         self.lineEdit_248.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_195.addWidget(self.lineEdit_248)
@@ -1829,6 +1865,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_249 = QLineEdit(self.frame_10)
         self.lineEdit_249.setObjectName(u"lineEdit_249")
+        self.lineEdit_249.setEnabled(False)
         self.lineEdit_249.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_196.addWidget(self.lineEdit_249)
@@ -1851,6 +1888,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_250 = QLineEdit(self.frame_10)
         self.lineEdit_250.setObjectName(u"lineEdit_250")
+        self.lineEdit_250.setEnabled(False)
         self.lineEdit_250.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_197.addWidget(self.lineEdit_250)
@@ -1868,6 +1906,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_251 = QLineEdit(self.frame_10)
         self.lineEdit_251.setObjectName(u"lineEdit_251")
+        self.lineEdit_251.setEnabled(False)
         self.lineEdit_251.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_198.addWidget(self.lineEdit_251)
@@ -1885,6 +1924,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_252 = QLineEdit(self.frame_10)
         self.lineEdit_252.setObjectName(u"lineEdit_252")
+        self.lineEdit_252.setEnabled(False)
         self.lineEdit_252.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_199.addWidget(self.lineEdit_252)
@@ -1907,6 +1947,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_253 = QLineEdit(self.frame_10)
         self.lineEdit_253.setObjectName(u"lineEdit_253")
+        self.lineEdit_253.setEnabled(False)
         self.lineEdit_253.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_200.addWidget(self.lineEdit_253)
@@ -1924,6 +1965,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_254 = QLineEdit(self.frame_10)
         self.lineEdit_254.setObjectName(u"lineEdit_254")
+        self.lineEdit_254.setEnabled(False)
         self.lineEdit_254.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_201.addWidget(self.lineEdit_254)
@@ -1979,6 +2021,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_199.setObjectName(u"horizontalLayout_199")
         self.lineEdit_255 = QLineEdit(self.frame_11)
         self.lineEdit_255.setObjectName(u"lineEdit_255")
+        self.lineEdit_255.setEnabled(False)
         self.lineEdit_255.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_255.setStyleSheet(u"background-color: rgb(222, 110, 75);")
         self.lineEdit_255.setEchoMode(QLineEdit.Normal)
@@ -2000,6 +2043,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_256 = QLineEdit(self.frame_11)
         self.lineEdit_256.setObjectName(u"lineEdit_256")
+        self.lineEdit_256.setEnabled(False)
         self.lineEdit_256.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_201.addWidget(self.lineEdit_256)
@@ -2017,6 +2061,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_257 = QLineEdit(self.frame_11)
         self.lineEdit_257.setObjectName(u"lineEdit_257")
+        self.lineEdit_257.setEnabled(False)
         self.lineEdit_257.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_202.addWidget(self.lineEdit_257)
@@ -2039,6 +2084,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_258 = QLineEdit(self.frame_11)
         self.lineEdit_258.setObjectName(u"lineEdit_258")
+        self.lineEdit_258.setEnabled(False)
         self.lineEdit_258.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_203.addWidget(self.lineEdit_258)
@@ -2056,6 +2102,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_259 = QLineEdit(self.frame_11)
         self.lineEdit_259.setObjectName(u"lineEdit_259")
+        self.lineEdit_259.setEnabled(False)
         self.lineEdit_259.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_204.addWidget(self.lineEdit_259)
@@ -2073,6 +2120,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_260 = QLineEdit(self.frame_11)
         self.lineEdit_260.setObjectName(u"lineEdit_260")
+        self.lineEdit_260.setEnabled(False)
         self.lineEdit_260.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_205.addWidget(self.lineEdit_260)
@@ -2095,6 +2143,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_261 = QLineEdit(self.frame_11)
         self.lineEdit_261.setObjectName(u"lineEdit_261")
+        self.lineEdit_261.setEnabled(False)
         self.lineEdit_261.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_206.addWidget(self.lineEdit_261)
@@ -2112,6 +2161,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_262 = QLineEdit(self.frame_11)
         self.lineEdit_262.setObjectName(u"lineEdit_262")
+        self.lineEdit_262.setEnabled(False)
         self.lineEdit_262.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_207.addWidget(self.lineEdit_262)
@@ -2157,6 +2207,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_205.setObjectName(u"horizontalLayout_205")
         self.lineEdit_263 = QLineEdit(self.frame_12)
         self.lineEdit_263.setObjectName(u"lineEdit_263")
+        self.lineEdit_263.setEnabled(False)
         self.lineEdit_263.setLayoutDirection(Qt.LeftToRight)
         self.lineEdit_263.setStyleSheet(u"background-color: rgb(23, 106, 214);")
         self.lineEdit_263.setEchoMode(QLineEdit.Normal)
@@ -2178,6 +2229,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_264 = QLineEdit(self.frame_12)
         self.lineEdit_264.setObjectName(u"lineEdit_264")
+        self.lineEdit_264.setEnabled(False)
         self.lineEdit_264.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_207.addWidget(self.lineEdit_264)
@@ -2195,6 +2247,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_265 = QLineEdit(self.frame_12)
         self.lineEdit_265.setObjectName(u"lineEdit_265")
+        self.lineEdit_265.setEnabled(False)
         self.lineEdit_265.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_208.addWidget(self.lineEdit_265)
@@ -2217,6 +2270,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_266 = QLineEdit(self.frame_12)
         self.lineEdit_266.setObjectName(u"lineEdit_266")
+        self.lineEdit_266.setEnabled(False)
         self.lineEdit_266.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_209.addWidget(self.lineEdit_266)
@@ -2234,6 +2288,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_267 = QLineEdit(self.frame_12)
         self.lineEdit_267.setObjectName(u"lineEdit_267")
+        self.lineEdit_267.setEnabled(False)
         self.lineEdit_267.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_210.addWidget(self.lineEdit_267)
@@ -2251,6 +2306,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_268 = QLineEdit(self.frame_12)
         self.lineEdit_268.setObjectName(u"lineEdit_268")
+        self.lineEdit_268.setEnabled(False)
         self.lineEdit_268.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_211.addWidget(self.lineEdit_268)
@@ -2273,6 +2329,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_269 = QLineEdit(self.frame_12)
         self.lineEdit_269.setObjectName(u"lineEdit_269")
+        self.lineEdit_269.setEnabled(False)
         self.lineEdit_269.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_212.addWidget(self.lineEdit_269)
@@ -2290,6 +2347,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_270 = QLineEdit(self.frame_12)
         self.lineEdit_270.setObjectName(u"lineEdit_270")
+        self.lineEdit_270.setEnabled(False)
         self.lineEdit_270.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_213.addWidget(self.lineEdit_270)
@@ -2336,19 +2394,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.frame_2)
 
-        self.stackedWidget.addWidget(self.widgets)
-        self.new_page = QWidget()
-        self.new_page.setObjectName(u"new_page")
-        self.verticalLayout_20 = QVBoxLayout(self.new_page)
+        self.stackedWidget.addWidget(self.BuscarCotacao)
+        self.GerarCotacao = QWidget()
+        self.GerarCotacao.setObjectName(u"GerarCotacao")
+        self.verticalLayout_20 = QVBoxLayout(self.GerarCotacao)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.gridFrame = QFrame(self.new_page)
+        self.gridFrame = QFrame(self.GerarCotacao)
         self.gridFrame.setObjectName(u"gridFrame")
         self.gridFrame.setMaximumSize(QSize(16777215, 231))
         self.horizontalLayout_17 = QHBoxLayout(self.gridFrame)
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.tableWidget_2 = QTableWidget(self.gridFrame)
-        if (self.tableWidget_2.columnCount() < 4):
-            self.tableWidget_2.setColumnCount(4)
+        if (self.tableWidget_2.columnCount() < 5):
+            self.tableWidget_2.setColumnCount(5)
         __qtablewidgetitem = QTableWidgetItem()
         __qtablewidgetitem.setText(u"Altura");
         self.tableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem)
@@ -2358,42 +2416,68 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         if (self.tableWidget_2.rowCount() < 5):
             self.tableWidget_2.setRowCount(5)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(0, __qtablewidgetitem4)
         __qtablewidgetitem5 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(1, __qtablewidgetitem5)
+        self.tableWidget_2.setVerticalHeaderItem(0, __qtablewidgetitem5)
         __qtablewidgetitem6 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(2, __qtablewidgetitem6)
+        self.tableWidget_2.setVerticalHeaderItem(1, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(3, __qtablewidgetitem7)
+        self.tableWidget_2.setVerticalHeaderItem(2, __qtablewidgetitem7)
         __qtablewidgetitem8 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(4, __qtablewidgetitem8)
+        self.tableWidget_2.setVerticalHeaderItem(3, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.tableWidget_2.setVerticalHeaderItem(4, __qtablewidgetitem9)
         self.tableWidget_2.setObjectName(u"tableWidget_2")
+        self.tableWidget_2.setEnabled(True)
 
         self.horizontalLayout_17.addWidget(self.tableWidget_2)
 
         self.gridLayout_9 = QGridLayout()
+        self.gridLayout_9.setSpacing(0)
         self.gridLayout_9.setObjectName(u"gridLayout_9")
+        self.gridLayout_9.setContentsMargins(0, 0, 0, 0)
         self.verticalFrame = QFrame(self.gridFrame)
         self.verticalFrame.setObjectName(u"verticalFrame")
-        self.horizontalLayout_25 = QHBoxLayout(self.verticalFrame)
+        self.horizontalLayout_18 = QHBoxLayout(self.verticalFrame)
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.label_33 = QLabel(self.verticalFrame)
+        self.label_33.setObjectName(u"label_33")
+
+        self.horizontalLayout_18.addWidget(self.label_33)
+
+        self.lineEdit_39 = QLineEdit(self.verticalFrame)
+        self.lineEdit_39.setObjectName(u"lineEdit_39")
+        self.lineEdit_39.setMinimumSize(QSize(0, 20))
+        self.lineEdit_39.setFont(font)
+        self.lineEdit_39.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_18.addWidget(self.lineEdit_39)
+
+
+        self.gridLayout_9.addWidget(self.verticalFrame, 6, 0, 1, 1)
+
+        self.verticalFrame1 = QFrame(self.gridFrame)
+        self.verticalFrame1.setObjectName(u"verticalFrame1")
+        self.horizontalLayout_25 = QHBoxLayout(self.verticalFrame1)
         self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.label_14 = QLabel(self.verticalFrame)
+        self.label_14 = QLabel(self.verticalFrame1)
         self.label_14.setObjectName(u"label_14")
 
         self.horizontalLayout_25.addWidget(self.label_14)
 
-        self.lineEdit_16 = QLineEdit(self.verticalFrame)
+        self.lineEdit_16 = QLineEdit(self.verticalFrame1)
         self.lineEdit_16.setObjectName(u"lineEdit_16")
-        self.lineEdit_16.setMinimumSize(QSize(0, 22))
+        self.lineEdit_16.setEnabled(True)
+        self.lineEdit_16.setMinimumSize(QSize(0, 20))
         self.lineEdit_16.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_25.addWidget(self.lineEdit_16)
 
 
-        self.gridLayout_9.addWidget(self.verticalFrame, 0, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.verticalFrame1, 1, 0, 1, 1)
 
         self.verticalFrame_3 = QFrame(self.gridFrame)
         self.verticalFrame_3.setObjectName(u"verticalFrame_3")
@@ -2406,19 +2490,21 @@ class Ui_MainWindow(object):
 
         self.lineEdit_18 = QLineEdit(self.verticalFrame_3)
         self.lineEdit_18.setObjectName(u"lineEdit_18")
-        self.lineEdit_18.setMinimumSize(QSize(0, 22))
+        self.lineEdit_18.setEnabled(True)
+        self.lineEdit_18.setMinimumSize(QSize(0, 20))
         self.lineEdit_18.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_27.addWidget(self.lineEdit_18)
 
 
-        self.gridLayout_9.addWidget(self.verticalFrame_3, 2, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.verticalFrame_3, 3, 0, 1, 1)
 
         self.pushButton_2 = QPushButton(self.gridFrame)
         self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setMinimumSize(QSize(0, 22))
         self.pushButton_2.setStyleSheet(u"background-color: rgb(52, 59, 72);")
 
-        self.gridLayout_9.addWidget(self.pushButton_2, 6, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.pushButton_2, 7, 0, 1, 1)
 
         self.verticalFrame_4 = QFrame(self.gridFrame)
         self.verticalFrame_4.setObjectName(u"verticalFrame_4")
@@ -2431,13 +2517,13 @@ class Ui_MainWindow(object):
 
         self.lineEdit_12 = QLineEdit(self.verticalFrame_4)
         self.lineEdit_12.setObjectName(u"lineEdit_12")
-        self.lineEdit_12.setMinimumSize(QSize(0, 22))
+        self.lineEdit_12.setMinimumSize(QSize(0, 20))
         self.lineEdit_12.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_28.addWidget(self.lineEdit_12)
 
 
-        self.gridLayout_9.addWidget(self.verticalFrame_4, 3, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.verticalFrame_4, 4, 0, 1, 1)
 
         self.verticalFrame_2 = QFrame(self.gridFrame)
         self.verticalFrame_2.setObjectName(u"verticalFrame_2")
@@ -2450,56 +2536,58 @@ class Ui_MainWindow(object):
 
         self.lineEdit_17 = QLineEdit(self.verticalFrame_2)
         self.lineEdit_17.setObjectName(u"lineEdit_17")
-        self.lineEdit_17.setMinimumSize(QSize(0, 22))
+        self.lineEdit_17.setEnabled(True)
+        self.lineEdit_17.setMinimumSize(QSize(0, 20))
         self.lineEdit_17.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.horizontalLayout_26.addWidget(self.lineEdit_17)
 
 
-        self.gridLayout_9.addWidget(self.verticalFrame_2, 1, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.verticalFrame_2, 2, 0, 1, 1)
 
-        self.verticalFrame1 = QFrame(self.gridFrame)
-        self.verticalFrame1.setObjectName(u"verticalFrame1")
-        self.horizontalLayout_18 = QHBoxLayout(self.verticalFrame1)
-        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.label_33 = QLabel(self.verticalFrame1)
-        self.label_33.setObjectName(u"label_33")
+        self.horizontalFrame = QFrame(self.gridFrame)
+        self.horizontalFrame.setObjectName(u"horizontalFrame")
+        self.horizontalLayout_36 = QHBoxLayout(self.horizontalFrame)
+        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
+        self.label_42 = QLabel(self.horizontalFrame)
+        self.label_42.setObjectName(u"label_42")
 
-        self.horizontalLayout_18.addWidget(self.label_33)
+        self.horizontalLayout_36.addWidget(self.label_42)
 
-        self.lineEdit_39 = QLineEdit(self.verticalFrame1)
-        self.lineEdit_39.setObjectName(u"lineEdit_39")
-        self.lineEdit_39.setMinimumSize(QSize(0, 22))
-        self.lineEdit_39.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        self.lineEdit_44 = QLineEdit(self.horizontalFrame)
+        self.lineEdit_44.setObjectName(u"lineEdit_44")
+        self.lineEdit_44.setMinimumSize(QSize(0, 20))
+        self.lineEdit_44.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
-        self.horizontalLayout_18.addWidget(self.lineEdit_39)
+        self.horizontalLayout_36.addWidget(self.lineEdit_44)
 
 
-        self.gridLayout_9.addWidget(self.verticalFrame1, 5, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.horizontalFrame, 0, 0, 1, 1)
 
 
         self.horizontalLayout_17.addLayout(self.gridLayout_9)
 
         self.verticalLayout_19 = QVBoxLayout()
+        self.verticalLayout_19.setSpacing(1)
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
-        self.horizontalFrame = QFrame(self.gridFrame)
-        self.horizontalFrame.setObjectName(u"horizontalFrame")
-        self.horizontalLayout_23 = QHBoxLayout(self.horizontalFrame)
+        self.horizontalFrame1 = QFrame(self.gridFrame)
+        self.horizontalFrame1.setObjectName(u"horizontalFrame1")
+        self.horizontalLayout_23 = QHBoxLayout(self.horizontalFrame1)
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.label_18 = QLabel(self.horizontalFrame)
+        self.label_18 = QLabel(self.horizontalFrame1)
         self.label_18.setObjectName(u"label_18")
 
         self.horizontalLayout_23.addWidget(self.label_18)
 
-        self.lineEdit_14 = QLineEdit(self.horizontalFrame)
-        self.lineEdit_14.setObjectName(u"lineEdit_14")
-        self.lineEdit_14.setMinimumSize(QSize(0, 22))
-        self.lineEdit_14.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        self.gerar_cotacao_valor_nfe = QLineEdit(self.horizontalFrame1)
+        self.gerar_cotacao_valor_nfe.setObjectName(u"gerar_cotacao_valor_nfe")
+        self.gerar_cotacao_valor_nfe.setMinimumSize(QSize(0, 20))
+        self.gerar_cotacao_valor_nfe.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
-        self.horizontalLayout_23.addWidget(self.lineEdit_14)
+        self.horizontalLayout_23.addWidget(self.gerar_cotacao_valor_nfe)
 
 
-        self.verticalLayout_19.addWidget(self.horizontalFrame)
+        self.verticalLayout_19.addWidget(self.horizontalFrame1)
 
         self.horizontalFrame_2 = QFrame(self.gridFrame)
         self.horizontalFrame_2.setObjectName(u"horizontalFrame_2")
@@ -2510,12 +2598,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_29.addWidget(self.label_13)
 
-        self.lineEdit_11 = QLineEdit(self.horizontalFrame_2)
-        self.lineEdit_11.setObjectName(u"lineEdit_11")
-        self.lineEdit_11.setMinimumSize(QSize(0, 22))
-        self.lineEdit_11.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        self.gerar_cotacao_quantidade = QLineEdit(self.horizontalFrame_2)
+        self.gerar_cotacao_quantidade.setObjectName(u"gerar_cotacao_quantidade")
+        self.gerar_cotacao_quantidade.setMinimumSize(QSize(0, 20))
+        self.gerar_cotacao_quantidade.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
-        self.horizontalLayout_29.addWidget(self.lineEdit_11)
+        self.horizontalLayout_29.addWidget(self.gerar_cotacao_quantidade)
 
 
         self.verticalLayout_19.addWidget(self.horizontalFrame_2)
@@ -2529,12 +2617,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_31.addWidget(self.label_12)
 
-        self.lineEdit_13 = QLineEdit(self.horizontalFrame_3)
-        self.lineEdit_13.setObjectName(u"lineEdit_13")
-        self.lineEdit_13.setMinimumSize(QSize(0, 22))
-        self.lineEdit_13.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        self.gerar_cotacao_peso = QLineEdit(self.horizontalFrame_3)
+        self.gerar_cotacao_peso.setObjectName(u"gerar_cotacao_peso")
+        self.gerar_cotacao_peso.setMinimumSize(QSize(0, 20))
+        self.gerar_cotacao_peso.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
-        self.horizontalLayout_31.addWidget(self.lineEdit_13)
+        self.horizontalLayout_31.addWidget(self.gerar_cotacao_peso)
 
 
         self.verticalLayout_19.addWidget(self.horizontalFrame_3)
@@ -2548,21 +2636,21 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addWidget(self.label_11)
 
-        self.lineEdit_15 = QLineEdit(self.horizontalFrame_4)
-        self.lineEdit_15.setObjectName(u"lineEdit_15")
-        self.lineEdit_15.setMinimumSize(QSize(0, 22))
-        self.lineEdit_15.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        self.gerar_cotacao_cep = QLineEdit(self.horizontalFrame_4)
+        self.gerar_cotacao_cep.setObjectName(u"gerar_cotacao_cep")
+        self.gerar_cotacao_cep.setMinimumSize(QSize(0, 20))
+        self.gerar_cotacao_cep.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
-        self.horizontalLayout_32.addWidget(self.lineEdit_15)
+        self.horizontalLayout_32.addWidget(self.gerar_cotacao_cep)
 
 
         self.verticalLayout_19.addWidget(self.horizontalFrame_4)
 
-        self.pushButton_3 = QPushButton(self.gridFrame)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setStyleSheet(u"background-color: rgb(52, 59, 72);")
+        self.gerar_cotacao_btn = QPushButton(self.gridFrame)
+        self.gerar_cotacao_btn.setObjectName(u"gerar_cotacao_btn")
+        self.gerar_cotacao_btn.setStyleSheet(u"background-color: rgb(52, 59, 72);")
 
-        self.verticalLayout_19.addWidget(self.pushButton_3)
+        self.verticalLayout_19.addWidget(self.gerar_cotacao_btn)
 
         self.pushButton_4 = QPushButton(self.gridFrame)
         self.pushButton_4.setObjectName(u"pushButton_4")
@@ -2570,13 +2658,165 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_19.addWidget(self.pushButton_4)
 
+        self.pushButton_3 = QPushButton(self.gridFrame)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setStyleSheet(u"background-color: rgb(0, 40, 0);")
+
+        self.verticalLayout_19.addWidget(self.pushButton_3)
+
 
         self.horizontalLayout_17.addLayout(self.verticalLayout_19)
 
 
         self.verticalLayout_20.addWidget(self.gridFrame)
 
-        self.widget = QWidget(self.new_page)
+        self.horizontalWidget = QWidget(self.GerarCotacao)
+        self.horizontalWidget.setObjectName(u"horizontalWidget")
+        self.horizontalWidget.setMinimumSize(QSize(0, 29))
+        self.horizontalWidget.setMaximumSize(QSize(16777215, 50))
+        self.horizontalLayout_19 = QHBoxLayout(self.horizontalWidget)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_34 = QHBoxLayout()
+        self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
+        self.label_34 = QLabel(self.horizontalWidget)
+        self.label_34.setObjectName(u"label_34")
+
+        self.horizontalLayout_34.addWidget(self.label_34)
+
+        self.lineEdit_40 = QLineEdit(self.horizontalWidget)
+        self.lineEdit_40.setObjectName(u"lineEdit_40")
+        self.lineEdit_40.setEnabled(False)
+        self.lineEdit_40.setMinimumSize(QSize(0, 22))
+        self.lineEdit_40.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_34.addWidget(self.lineEdit_40)
+
+
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_34)
+
+        self.horizontalLayout_30 = QHBoxLayout()
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.label_35 = QLabel(self.horizontalWidget)
+        self.label_35.setObjectName(u"label_35")
+
+        self.horizontalLayout_30.addWidget(self.label_35)
+
+        self.lineEdit_41 = QLineEdit(self.horizontalWidget)
+        self.lineEdit_41.setObjectName(u"lineEdit_41")
+        self.lineEdit_41.setEnabled(False)
+        self.lineEdit_41.setMinimumSize(QSize(0, 22))
+        self.lineEdit_41.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_30.addWidget(self.lineEdit_41)
+
+
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_30)
+
+        self.horizontalLayout_22 = QHBoxLayout()
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.label_36 = QLabel(self.horizontalWidget)
+        self.label_36.setObjectName(u"label_36")
+
+        self.horizontalLayout_22.addWidget(self.label_36)
+
+        self.lineEdit_42 = QLineEdit(self.horizontalWidget)
+        self.lineEdit_42.setObjectName(u"lineEdit_42")
+        self.lineEdit_42.setEnabled(False)
+        self.lineEdit_42.setMinimumSize(QSize(0, 22))
+        self.lineEdit_42.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_22.addWidget(self.lineEdit_42)
+
+
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_22)
+
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.label_37 = QLabel(self.horizontalWidget)
+        self.label_37.setObjectName(u"label_37")
+
+        self.horizontalLayout_21.addWidget(self.label_37)
+
+        self.lineEdit_43 = QLineEdit(self.horizontalWidget)
+        self.lineEdit_43.setObjectName(u"lineEdit_43")
+        self.lineEdit_43.setEnabled(False)
+        self.lineEdit_43.setMinimumSize(QSize(0, 22))
+        self.lineEdit_43.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_21.addWidget(self.lineEdit_43)
+
+
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_21)
+
+
+        self.verticalLayout_20.addWidget(self.horizontalWidget)
+
+        self.verticalWidget = QWidget(self.GerarCotacao)
+        self.verticalWidget.setObjectName(u"verticalWidget")
+        self.verticalWidget.setMinimumSize(QSize(0, 1))
+        self.verticalWidget.setMaximumSize(QSize(16777215, 150))
+        self.verticalLayout_16 = QVBoxLayout(self.verticalWidget)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.horizontalLayout_35 = QHBoxLayout()
+        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
+        self.label_39 = QLabel(self.verticalWidget)
+        self.label_39.setObjectName(u"label_39")
+
+        self.horizontalLayout_35.addWidget(self.label_39)
+
+        self.lineEdit_11 = QLineEdit(self.verticalWidget)
+        self.lineEdit_11.setObjectName(u"lineEdit_11")
+        self.lineEdit_11.setEnabled(False)
+        self.lineEdit_11.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_35.addWidget(self.lineEdit_11)
+
+        self.label_40 = QLabel(self.verticalWidget)
+        self.label_40.setObjectName(u"label_40")
+
+        self.horizontalLayout_35.addWidget(self.label_40)
+
+        self.lineEdit_14 = QLineEdit(self.verticalWidget)
+        self.lineEdit_14.setObjectName(u"lineEdit_14")
+        self.lineEdit_14.setEnabled(False)
+
+        self.horizontalLayout_35.addWidget(self.lineEdit_14)
+
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_35)
+
+        self.horizontalLayout_33 = QHBoxLayout()
+        self.horizontalLayout_33.setObjectName(u"horizontalLayout_33")
+        self.label_38 = QLabel(self.verticalWidget)
+        self.label_38.setObjectName(u"label_38")
+
+        self.horizontalLayout_33.addWidget(self.label_38)
+
+        self.lineEdit_13 = QLineEdit(self.verticalWidget)
+        self.lineEdit_13.setObjectName(u"lineEdit_13")
+        self.lineEdit_13.setEnabled(False)
+        self.lineEdit_13.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+
+        self.horizontalLayout_33.addWidget(self.lineEdit_13)
+
+        self.label_41 = QLabel(self.verticalWidget)
+        self.label_41.setObjectName(u"label_41")
+
+        self.horizontalLayout_33.addWidget(self.label_41)
+
+        self.lineEdit_15 = QLineEdit(self.verticalWidget)
+        self.lineEdit_15.setObjectName(u"lineEdit_15")
+        self.lineEdit_15.setEnabled(False)
+
+        self.horizontalLayout_33.addWidget(self.lineEdit_15)
+
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_33)
+
+
+        self.verticalLayout_20.addWidget(self.verticalWidget)
+
+        self.widget = QWidget(self.GerarCotacao)
         self.widget.setObjectName(u"widget")
         self.widget.setMaximumSize(QSize(16777215, 215))
         self.horizontalLayout_24 = QHBoxLayout(self.widget)
@@ -2585,6 +2825,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_42.setObjectName(u"verticalLayout_42")
         self.lineEdit_19 = QLineEdit(self.widget)
         self.lineEdit_19.setObjectName(u"lineEdit_19")
+        self.lineEdit_19.setEnabled(False)
         self.lineEdit_19.setStyleSheet(u"background-color: rgb(195, 159, 0);")
 
         self.verticalLayout_42.addWidget(self.lineEdit_19)
@@ -2598,6 +2839,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_24 = QLineEdit(self.widget)
         self.lineEdit_24.setObjectName(u"lineEdit_24")
+        self.lineEdit_24.setEnabled(False)
         self.lineEdit_24.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_46.addWidget(self.lineEdit_24)
@@ -2614,6 +2856,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_25 = QLineEdit(self.widget)
         self.lineEdit_25.setObjectName(u"lineEdit_25")
+        self.lineEdit_25.setEnabled(False)
         self.lineEdit_25.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_21.addWidget(self.lineEdit_25)
@@ -2630,6 +2873,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_26 = QLineEdit(self.widget)
         self.lineEdit_26.setObjectName(u"lineEdit_26")
+        self.lineEdit_26.setEnabled(False)
         self.lineEdit_26.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_22.addWidget(self.lineEdit_26)
@@ -2644,6 +2888,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_41.setObjectName(u"verticalLayout_41")
         self.lineEdit_20 = QLineEdit(self.widget)
         self.lineEdit_20.setObjectName(u"lineEdit_20")
+        self.lineEdit_20.setEnabled(False)
         self.lineEdit_20.setStyleSheet(u"background-color: rgb(95, 85, 149);")
 
         self.verticalLayout_41.addWidget(self.lineEdit_20)
@@ -2657,6 +2902,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_27 = QLineEdit(self.widget)
         self.lineEdit_27.setObjectName(u"lineEdit_27")
+        self.lineEdit_27.setEnabled(False)
         self.lineEdit_27.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_47.addWidget(self.lineEdit_27)
@@ -2673,6 +2919,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_28 = QLineEdit(self.widget)
         self.lineEdit_28.setObjectName(u"lineEdit_28")
+        self.lineEdit_28.setEnabled(False)
         self.lineEdit_28.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_23.addWidget(self.lineEdit_28)
@@ -2689,6 +2936,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_29 = QLineEdit(self.widget)
         self.lineEdit_29.setObjectName(u"lineEdit_29")
+        self.lineEdit_29.setEnabled(False)
         self.lineEdit_29.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_24.addWidget(self.lineEdit_29)
@@ -2703,6 +2951,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_40.setObjectName(u"verticalLayout_40")
         self.lineEdit_21 = QLineEdit(self.widget)
         self.lineEdit_21.setObjectName(u"lineEdit_21")
+        self.lineEdit_21.setEnabled(False)
         self.lineEdit_21.setStyleSheet(u"background-color: rgb(204, 85, 179);")
 
         self.verticalLayout_40.addWidget(self.lineEdit_21)
@@ -2716,6 +2965,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_30 = QLineEdit(self.widget)
         self.lineEdit_30.setObjectName(u"lineEdit_30")
+        self.lineEdit_30.setEnabled(False)
         self.lineEdit_30.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_45.addWidget(self.lineEdit_30)
@@ -2732,6 +2982,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_31 = QLineEdit(self.widget)
         self.lineEdit_31.setObjectName(u"lineEdit_31")
+        self.lineEdit_31.setEnabled(False)
         self.lineEdit_31.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_25.addWidget(self.lineEdit_31)
@@ -2748,6 +2999,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_32 = QLineEdit(self.widget)
         self.lineEdit_32.setObjectName(u"lineEdit_32")
+        self.lineEdit_32.setEnabled(False)
         self.lineEdit_32.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_26.addWidget(self.lineEdit_32)
@@ -2762,6 +3014,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_39.setObjectName(u"verticalLayout_39")
         self.lineEdit_22 = QLineEdit(self.widget)
         self.lineEdit_22.setObjectName(u"lineEdit_22")
+        self.lineEdit_22.setEnabled(False)
         self.lineEdit_22.setStyleSheet(u"background-color: rgb(222, 110, 75);")
 
         self.verticalLayout_39.addWidget(self.lineEdit_22)
@@ -2775,6 +3028,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_33 = QLineEdit(self.widget)
         self.lineEdit_33.setObjectName(u"lineEdit_33")
+        self.lineEdit_33.setEnabled(False)
         self.lineEdit_33.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_44.addWidget(self.lineEdit_33)
@@ -2791,6 +3045,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_34 = QLineEdit(self.widget)
         self.lineEdit_34.setObjectName(u"lineEdit_34")
+        self.lineEdit_34.setEnabled(False)
         self.lineEdit_34.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_27.addWidget(self.lineEdit_34)
@@ -2807,6 +3062,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_35 = QLineEdit(self.widget)
         self.lineEdit_35.setObjectName(u"lineEdit_35")
+        self.lineEdit_35.setEnabled(False)
         self.lineEdit_35.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_28.addWidget(self.lineEdit_35)
@@ -2821,6 +3077,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_38.setObjectName(u"verticalLayout_38")
         self.lineEdit_23 = QLineEdit(self.widget)
         self.lineEdit_23.setObjectName(u"lineEdit_23")
+        self.lineEdit_23.setEnabled(False)
         self.lineEdit_23.setStyleSheet(u"background-color: rgb(23, 106, 214);")
 
         self.verticalLayout_38.addWidget(self.lineEdit_23)
@@ -2834,6 +3091,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_36 = QLineEdit(self.widget)
         self.lineEdit_36.setObjectName(u"lineEdit_36")
+        self.lineEdit_36.setEnabled(False)
         self.lineEdit_36.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_43.addWidget(self.lineEdit_36)
@@ -2850,6 +3108,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_37 = QLineEdit(self.widget)
         self.lineEdit_37.setObjectName(u"lineEdit_37")
+        self.lineEdit_37.setEnabled(False)
         self.lineEdit_37.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_36.addWidget(self.lineEdit_37)
@@ -2866,6 +3125,7 @@ class Ui_MainWindow(object):
 
         self.lineEdit_38 = QLineEdit(self.widget)
         self.lineEdit_38.setObjectName(u"lineEdit_38")
+        self.lineEdit_38.setEnabled(False)
         self.lineEdit_38.setStyleSheet(u"background-color: rgb(33, 37, 43);")
 
         self.verticalLayout_37.addWidget(self.lineEdit_38)
@@ -2879,7 +3139,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.widget)
 
-        self.stackedWidget.addWidget(self.new_page)
+        self.stackedWidget.addWidget(self.GerarCotacao)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
 
@@ -3017,6 +3277,130 @@ class Ui_MainWindow(object):
         self.appMargins.addWidget(self.bgApp)
 
         MainWindow.setCentralWidget(self.styleSheet)
+        QWidget.setTabOrder(self.btn_home, self.btn_widgets)
+        QWidget.setTabOrder(self.btn_widgets, self.btn_new)
+        QWidget.setTabOrder(self.btn_new, self.toggleLeftBox)
+        QWidget.setTabOrder(self.toggleLeftBox, self.extraCloseColumnBtn)
+        QWidget.setTabOrder(self.extraCloseColumnBtn, self.btn_share)
+        QWidget.setTabOrder(self.btn_share, self.btn_adjustments)
+        QWidget.setTabOrder(self.btn_adjustments, self.btn_more)
+        QWidget.setTabOrder(self.btn_more, self.textEdit)
+        QWidget.setTabOrder(self.textEdit, self.settingsTopBtn)
+        QWidget.setTabOrder(self.settingsTopBtn, self.minimizeAppBtn)
+        QWidget.setTabOrder(self.minimizeAppBtn, self.maximizeRestoreAppBtn)
+        QWidget.setTabOrder(self.maximizeRestoreAppBtn, self.closeAppBtn)
+        QWidget.setTabOrder(self.closeAppBtn, self.lineEdit_2)
+        QWidget.setTabOrder(self.lineEdit_2, self.lineEdit)
+        QWidget.setTabOrder(self.lineEdit, self.pushButton)
+        QWidget.setTabOrder(self.pushButton, self.lineEdit_40)
+        QWidget.setTabOrder(self.lineEdit_40, self.lineEdit_3)
+        QWidget.setTabOrder(self.lineEdit_3, self.lineEdit_6)
+        QWidget.setTabOrder(self.lineEdit_6, self.lineEdit_4)
+        QWidget.setTabOrder(self.lineEdit_4, self.lineEdit_9)
+        QWidget.setTabOrder(self.lineEdit_9, self.lineEdit_8)
+        QWidget.setTabOrder(self.lineEdit_8, self.lineEdit_5)
+        QWidget.setTabOrder(self.lineEdit_5, self.lineEdit_7)
+        QWidget.setTabOrder(self.lineEdit_7, self.scrollArea)
+        QWidget.setTabOrder(self.scrollArea, self.lineEdit_223)
+        QWidget.setTabOrder(self.lineEdit_223, self.lineEdit_224)
+        QWidget.setTabOrder(self.lineEdit_224, self.lineEdit_225)
+        QWidget.setTabOrder(self.lineEdit_225, self.lineEdit_226)
+        QWidget.setTabOrder(self.lineEdit_226, self.lineEdit_227)
+        QWidget.setTabOrder(self.lineEdit_227, self.lineEdit_228)
+        QWidget.setTabOrder(self.lineEdit_228, self.lineEdit_229)
+        QWidget.setTabOrder(self.lineEdit_229, self.lineEdit_230)
+        QWidget.setTabOrder(self.lineEdit_230, self.pushButton_30)
+        QWidget.setTabOrder(self.pushButton_30, self.lineEdit_231)
+        QWidget.setTabOrder(self.lineEdit_231, self.lineEdit_232)
+        QWidget.setTabOrder(self.lineEdit_232, self.lineEdit_233)
+        QWidget.setTabOrder(self.lineEdit_233, self.lineEdit_234)
+        QWidget.setTabOrder(self.lineEdit_234, self.lineEdit_235)
+        QWidget.setTabOrder(self.lineEdit_235, self.lineEdit_236)
+        QWidget.setTabOrder(self.lineEdit_236, self.lineEdit_237)
+        QWidget.setTabOrder(self.lineEdit_237, self.lineEdit_238)
+        QWidget.setTabOrder(self.lineEdit_238, self.pushButton_31)
+        QWidget.setTabOrder(self.pushButton_31, self.lineEdit_239)
+        QWidget.setTabOrder(self.lineEdit_239, self.lineEdit_240)
+        QWidget.setTabOrder(self.lineEdit_240, self.lineEdit_241)
+        QWidget.setTabOrder(self.lineEdit_241, self.lineEdit_242)
+        QWidget.setTabOrder(self.lineEdit_242, self.lineEdit_243)
+        QWidget.setTabOrder(self.lineEdit_243, self.lineEdit_244)
+        QWidget.setTabOrder(self.lineEdit_244, self.lineEdit_245)
+        QWidget.setTabOrder(self.lineEdit_245, self.lineEdit_10)
+        QWidget.setTabOrder(self.lineEdit_10, self.lineEdit_246)
+        QWidget.setTabOrder(self.lineEdit_246, self.pushButton_32)
+        QWidget.setTabOrder(self.pushButton_32, self.lineEdit_247)
+        QWidget.setTabOrder(self.lineEdit_247, self.lineEdit_248)
+        QWidget.setTabOrder(self.lineEdit_248, self.lineEdit_249)
+        QWidget.setTabOrder(self.lineEdit_249, self.lineEdit_250)
+        QWidget.setTabOrder(self.lineEdit_250, self.lineEdit_251)
+        QWidget.setTabOrder(self.lineEdit_251, self.lineEdit_252)
+        QWidget.setTabOrder(self.lineEdit_252, self.lineEdit_253)
+        QWidget.setTabOrder(self.lineEdit_253, self.lineEdit_254)
+        QWidget.setTabOrder(self.lineEdit_254, self.pushButton_33)
+        QWidget.setTabOrder(self.pushButton_33, self.lineEdit_255)
+        QWidget.setTabOrder(self.lineEdit_255, self.lineEdit_256)
+        QWidget.setTabOrder(self.lineEdit_256, self.lineEdit_257)
+        QWidget.setTabOrder(self.lineEdit_257, self.lineEdit_258)
+        QWidget.setTabOrder(self.lineEdit_258, self.lineEdit_259)
+        QWidget.setTabOrder(self.lineEdit_259, self.lineEdit_260)
+        QWidget.setTabOrder(self.lineEdit_260, self.lineEdit_261)
+        QWidget.setTabOrder(self.lineEdit_261, self.lineEdit_262)
+        QWidget.setTabOrder(self.lineEdit_262, self.pushButton_34)
+        QWidget.setTabOrder(self.pushButton_34, self.lineEdit_263)
+        QWidget.setTabOrder(self.lineEdit_263, self.lineEdit_264)
+        QWidget.setTabOrder(self.lineEdit_264, self.lineEdit_265)
+        QWidget.setTabOrder(self.lineEdit_265, self.lineEdit_266)
+        QWidget.setTabOrder(self.lineEdit_266, self.lineEdit_267)
+        QWidget.setTabOrder(self.lineEdit_267, self.lineEdit_268)
+        QWidget.setTabOrder(self.lineEdit_268, self.lineEdit_269)
+        QWidget.setTabOrder(self.lineEdit_269, self.lineEdit_270)
+        QWidget.setTabOrder(self.lineEdit_270, self.pushButton_35)
+        QWidget.setTabOrder(self.pushButton_35, self.tableWidget_2)
+        QWidget.setTabOrder(self.tableWidget_2, self.toggleButton)
+        QWidget.setTabOrder(self.toggleButton, self.gerar_cotacao_valor_nfe)
+        QWidget.setTabOrder(self.gerar_cotacao_valor_nfe, self.gerar_cotacao_quantidade)
+        QWidget.setTabOrder(self.gerar_cotacao_quantidade, self.gerar_cotacao_peso)
+        QWidget.setTabOrder(self.gerar_cotacao_peso, self.gerar_cotacao_cep)
+        QWidget.setTabOrder(self.gerar_cotacao_cep, self.gerar_cotacao_btn)
+        QWidget.setTabOrder(self.gerar_cotacao_btn, self.pushButton_4)
+        QWidget.setTabOrder(self.pushButton_4, self.lineEdit_44)
+        QWidget.setTabOrder(self.lineEdit_44, self.lineEdit_16)
+        QWidget.setTabOrder(self.lineEdit_16, self.lineEdit_17)
+        QWidget.setTabOrder(self.lineEdit_17, self.lineEdit_18)
+        QWidget.setTabOrder(self.lineEdit_18, self.lineEdit_12)
+        QWidget.setTabOrder(self.lineEdit_12, self.lineEdit_39)
+        QWidget.setTabOrder(self.lineEdit_39, self.pushButton_2)
+        QWidget.setTabOrder(self.pushButton_2, self.lineEdit_42)
+        QWidget.setTabOrder(self.lineEdit_42, self.lineEdit_43)
+        QWidget.setTabOrder(self.lineEdit_43, self.lineEdit_19)
+        QWidget.setTabOrder(self.lineEdit_19, self.lineEdit_24)
+        QWidget.setTabOrder(self.lineEdit_24, self.lineEdit_25)
+        QWidget.setTabOrder(self.lineEdit_25, self.lineEdit_26)
+        QWidget.setTabOrder(self.lineEdit_26, self.lineEdit_20)
+        QWidget.setTabOrder(self.lineEdit_20, self.lineEdit_27)
+        QWidget.setTabOrder(self.lineEdit_27, self.lineEdit_28)
+        QWidget.setTabOrder(self.lineEdit_28, self.lineEdit_29)
+        QWidget.setTabOrder(self.lineEdit_29, self.lineEdit_21)
+        QWidget.setTabOrder(self.lineEdit_21, self.lineEdit_30)
+        QWidget.setTabOrder(self.lineEdit_30, self.lineEdit_31)
+        QWidget.setTabOrder(self.lineEdit_31, self.lineEdit_32)
+        QWidget.setTabOrder(self.lineEdit_32, self.lineEdit_22)
+        QWidget.setTabOrder(self.lineEdit_22, self.lineEdit_33)
+        QWidget.setTabOrder(self.lineEdit_33, self.lineEdit_34)
+        QWidget.setTabOrder(self.lineEdit_34, self.lineEdit_35)
+        QWidget.setTabOrder(self.lineEdit_35, self.lineEdit_23)
+        QWidget.setTabOrder(self.lineEdit_23, self.lineEdit_36)
+        QWidget.setTabOrder(self.lineEdit_36, self.lineEdit_37)
+        QWidget.setTabOrder(self.lineEdit_37, self.lineEdit_38)
+        QWidget.setTabOrder(self.lineEdit_38, self.btn_message)
+        QWidget.setTabOrder(self.btn_message, self.btn_print)
+        QWidget.setTabOrder(self.btn_print, self.btn_logout)
+        QWidget.setTabOrder(self.btn_logout, self.lineEdit_11)
+        QWidget.setTabOrder(self.lineEdit_11, self.lineEdit_13)
+        QWidget.setTabOrder(self.lineEdit_13, self.lineEdit_14)
+        QWidget.setTabOrder(self.lineEdit_14, self.lineEdit_15)
+        QWidget.setTabOrder(self.lineEdit_15, self.lineEdit_41)
 
         self.retranslateUi(MainWindow)
 
@@ -3152,46 +3536,58 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem1 = self.tableWidget_2.horizontalHeaderItem(2)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Profundidade", None));
         ___qtablewidgetitem2 = self.tableWidget_2.horizontalHeaderItem(3)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Volumes", None));
-        ___qtablewidgetitem3 = self.tableWidget_2.verticalHeaderItem(0)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"1", None));
-        ___qtablewidgetitem4 = self.tableWidget_2.verticalHeaderItem(1)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"2", None));
-        ___qtablewidgetitem5 = self.tableWidget_2.verticalHeaderItem(2)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"3", None));
-        ___qtablewidgetitem6 = self.tableWidget_2.verticalHeaderItem(3)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"4", None));
-        ___qtablewidgetitem7 = self.tableWidget_2.verticalHeaderItem(4)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"5", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Peso", None));
+        ___qtablewidgetitem3 = self.tableWidget_2.horizontalHeaderItem(4)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Volumes", None));
+        ___qtablewidgetitem4 = self.tableWidget_2.verticalHeaderItem(0)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"1", None));
+        ___qtablewidgetitem5 = self.tableWidget_2.verticalHeaderItem(1)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"2", None));
+        ___qtablewidgetitem6 = self.tableWidget_2.verticalHeaderItem(2)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"3", None));
+        ___qtablewidgetitem7 = self.tableWidget_2.verticalHeaderItem(3)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"4", None));
+        ___qtablewidgetitem8 = self.tableWidget_2.verticalHeaderItem(4)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"5", None));
+        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Modelo", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Largura", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Comprimento", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Adicionar", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Quantidade", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Altura", None))
-        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Modelo", None))
+        self.label_42.setText(QCoreApplication.translate("MainWindow", u"Peso", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Valor Nfe ", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Quantidade", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Peso", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Cep", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Gerar Cota\u00e7\u00e3o", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Cancelar", None))
-        self.lineEdit_19.setText(QCoreApplication.translate("MainWindow", u"Rodonaves", None))
+        self.gerar_cotacao_btn.setText(QCoreApplication.translate("MainWindow", u"Gerar Cota\u00e7\u00e3o", None))
+        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Cancelar | Limpar", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Salvar | Vincular", None))
+        self.label_34.setText(QCoreApplication.translate("MainWindow", u"Rua", None))
+        self.label_35.setText(QCoreApplication.translate("MainWindow", u"Bairro", None))
+        self.label_36.setText(QCoreApplication.translate("MainWindow", u"Cidade", None))
+        self.label_37.setText(QCoreApplication.translate("MainWindow", u"Estado", None))
+        self.label_39.setText(QCoreApplication.translate("MainWindow", u"Melhor Prazo", None))
+        self.label_40.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
+        self.label_38.setText(QCoreApplication.translate("MainWindow", u"Melhor Valor", None))
+        self.label_41.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
+        self.lineEdit_19.setText(QCoreApplication.translate("MainWindow", u" Rodonaves", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Cota\u00e7\u00e3o", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
-        self.lineEdit_20.setText(QCoreApplication.translate("MainWindow", u"Alliex", None))
+        self.lineEdit_20.setText(QCoreApplication.translate("MainWindow", u" Alliex", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Cota\u00e7\u00e3o", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
-        self.lineEdit_21.setText(QCoreApplication.translate("MainWindow", u"Transreis", None))
+        self.lineEdit_21.setText(QCoreApplication.translate("MainWindow", u" Transreis", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"Cota\u00e7\u00e3o", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
-        self.lineEdit_22.setText(QCoreApplication.translate("MainWindow", u"Mid", None))
+        self.lineEdit_22.setText(QCoreApplication.translate("MainWindow", u" Mid", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Cota\u00e7\u00e3o", None))
         self.label_28.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
-        self.lineEdit_23.setText(QCoreApplication.translate("MainWindow", u"Direcional", None))
+        self.lineEdit_23.setText(QCoreApplication.translate("MainWindow", u" Direcional", None))
         self.label_30.setText(QCoreApplication.translate("MainWindow", u"Cota\u00e7\u00e3o", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"Valor", None))
         self.label_32.setText(QCoreApplication.translate("MainWindow", u"Prazo", None))
