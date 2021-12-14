@@ -1004,7 +1004,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.setStyleSheet(u"background: transparent;")
         self.Inicio = QWidget()
         self.Inicio.setObjectName(u"Inicio")
-        self.Inicio.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
+        self.Inicio.setStyleSheet(u"background-image: url(:/images/images/images/logistica.png);\n"
 "background-position: center;\n"
 "background-repeat: no-repeat;")
         self.stackedWidget.addWidget(self.Inicio)
@@ -3412,8 +3412,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.titleLeftApp.setText(QCoreApplication.translate("MainWindow", u"PyDracula", None))
-        self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"Modern GUI / Flat Style", None))
+        self.titleLeftApp.setText(QCoreApplication.translate("MainWindow", u"TransTyres", None))
+        self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"Transporte PneusTyres", None))
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Dashboard", None))
         self.btn_widgets.setText(QCoreApplication.translate("MainWindow", u"Buscar Cota\u00e7\u00e3o", None))

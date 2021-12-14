@@ -14,6 +14,7 @@ class GerarCotacao:
         valorTotal= float(valorTotal)
         quantidade_total= float(quantidade_total)
         cubagem= float(cubagem)
+ 
         
         rte = API_Rodonaves(cep,peso_total,valorTotal,quantidade_total,cubagem,produto)
         alliex = API_Alliex(cep,valorTotal,quantidade_total,peso_total,cubagem)
