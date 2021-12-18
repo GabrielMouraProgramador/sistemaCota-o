@@ -5,9 +5,6 @@ from .apiTransreis import *
 from .apiMid import *
 from .apiCep import *
 
-
-        
-        
 class GerarCotacao:
     def __init__(self,cep,peso_total,valorTotal,quantidade_total,cubagem,produto):
         peso_total= float(peso_total)

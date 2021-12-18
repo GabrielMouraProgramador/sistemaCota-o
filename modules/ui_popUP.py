@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'popUPtyUbIH.ui'
+## Form generated from reading UI file 'popUPXCcuhm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.1.3
 ##
@@ -12,9 +12,9 @@ from PySide6.QtCore import *  # type: ignore
 from PySide6.QtGui import *  # type: ignore
 from PySide6.QtWidgets import *  # type: ignore
 
-from . resources_rc import *
+from . resources_rc import * 
 
-class Ui_MainWindow_Pop_Up(object):
+class Ui_MainWindow_Pop_Up1(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")

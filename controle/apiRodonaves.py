@@ -6,7 +6,7 @@ class API_Rodonaves:
     def __init__(self,Cep,pesoTotal,valorTotal,quantidadeTotal,cubagem,produtos):
         try:
             #token = API_Rodonaves.get_token()
-            token = 'LX5pEHgBQo8fGHmVRZXq0XiLRJaUlIePLBraRzKyQqS_vMjDC4SitiL2QCDWKIfrvBuILGH4FUFfuA1qhrnw2x1z8F6m-jGN4Rk8L5vQVipG80dU6JyD8PhYe8cPRAq7GnQMXoTSFAqTFkmYzGhl0KvGEs8fbu8yPpezq9tzJksbDAY3aNRMU8Igy0-itrdwUpw7agazh-dUqWMUqACFS5STncQUvL7UDPTbsh-QnH4i9I9CsERx846OvrIcC0YpiLrwqFqsOarjtG1StaJ7udcpLhjfkC-x603434mA9VqD40RxRomcrQiAm9YDaz_CwiORHSRd7yMJLCh51Yp8u-WKVRddkh2_7FeqNJspXtnwwib0_0IwhW3Ai5K7viG2D97iONAW5wDeUw_SSEuKZYfuhHEPqBOEcoMFhOfL3gHuB8yVfOs_mYO42xGUNxid7d-4yCBdcqHzEmu170ERfQ'
+            token = '_lgdFrzuNNFTXoW25BdYriNNyu-CRGebTKHaUjMCWWDkGg9Qy6aqY5o8tqicSDJYVOUKY_Sssfs60xB_CruOx4gSzGpJhG2SelWYU53Dk0i-KJEUUDf0rbOwhF7y2OUORO-mddac1xFNnEn3YkkxHiDzleKT0igRnxWu55_jmq1A_BaOMUxN7_NSMkBG0OKW3K1dsJu3G8OCDp3zsCIK5EMOixzTstCiYVxLfCl3YBmS4tep7DV5UnJ5kR6RDW7q9cuEj46sn_cZk-Eume_Yc3xKg19np8Hn3x2rQyFjDnhc9TyCLivgtRtfwOWUeXPIR7Kl1LisP-G_t-wagdXIbq1gQ2obyD7_mhDP2GVgvDAu4642UUllvJvvln2elNLBdjJzTMPfphRHTHEo9lUbS6jhxyQ5CpjA7sIaY-NZgkFdugYaIZH0M_6yUHVG3imaPdCIHKSDsrKKIoZPqaYGNw'
             produtos = API_Rodonaves.tratamento_produtos(produtos,cubagem ,pesoTotal ,quantidadeTotal)
             print('to aqui 1')
             cotacao_crua = API_Rodonaves.cotacao(token,Cep,pesoTotal,valorTotal,quantidadeTotal,produtos)
@@ -132,4 +132,6 @@ class API_Rodonaves:
         COTACAO_SSW['MEDIDAS'] = medidas
         
         return COTACAO_SSW
+    
+    
     

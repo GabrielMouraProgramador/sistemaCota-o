@@ -722,7 +722,7 @@ class Ui_MainWindow_Pop_Up_Duplicado(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Pedido ja Vinculado a uma cota\u00e7\u00e3o.", None))
+        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Pedido ja vinculado a uma transportadora", None))
 #if QT_CONFIG(tooltip)
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
