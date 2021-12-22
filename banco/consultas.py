@@ -84,7 +84,12 @@ class Banco:
             transreis_td.N_COTACAO  as transreis_ncotacao ,
             transreis_td.VALOR  as transreis_valor,
             transreis_td.PRAZO  as transreis_prazo,
-            transreis_td.MEDIDAS  as transreis_medidas
+            transreis_td.MEDIDAS  as transreis_medidas,
+            
+            saomiguel_td.N_COTACAO  as saomiguel_ncotacao ,
+            saomiguel_td.VALOR  as saomiguel_valor,
+            saomiguel_td.PRAZO  as saomiguel_prazo,
+            saomiguel_td.MEDIDAS  as saomiguel_medidas
             
         
         FROM 
@@ -93,7 +98,8 @@ class Banco:
             direcional_transportadora as direcinal_td,
             mid_transportadora as mid_td,
             rodonaves_transportadora as rodonaves_td,
-            transreis_transportadora as transreis_td
+            transreis_transportadora as transreis_td,
+            sao_miguel_transportadora as saomiguel_td
 
         WHERE 
             dados.PEDIDO = alliex_td.PEDIDO and
@@ -101,6 +107,7 @@ class Banco:
             dados.PEDIDO = mid_td.PEDIDO and
             dados.PEDIDO = rodonaves_td.PEDIDO  and
             dados.PEDIDO = transreis_td.PEDIDO and
+            dados.PEDIDO = saomiguel_td.PEDIDO and
             dados.PEDIDO = {pedido} ''')
             
             resultado = cursor.fetchall()   
@@ -142,13 +149,22 @@ class Banco:
                                      'VALOR':resultado[0][32],
                                      'PRAZO':resultado[0][33],
                                      'MEDIDAS':resultado[0][34]}
+            
             pedido_info['TRANSREIS'] = {'COTACAO':resultado[0][35],
                                      'VALOR':resultado[0][36],
                                      'PRAZO':resultado[0][37],
                                      'MEDIDAS':resultado[0][38]}
+            
+            pedido_info['SAOMIGUEL'] = {'COTACAO':resultado[0][39],
+                                     'VALOR':resultado[0][40],
+                                     'PRAZO':resultado[0][41],
+                                     'MEDIDAS':resultado[0][42]}
+          
+            
 
         except Exception as erro:
-            pedido_info = {'PEDIDO': '', 'NOME': '', 'CPF': '', 'RUA': '', 'BAIRRO': '', 'CIDADE': '', 'CEP': '', 'UF': '', 'MARCKETPLACE': '', 'TOTALPEDIDO': '', 'VALORFRETE': '', 'FORMAPAGAMENTO': '', 'PRAZOENTREGA': '', 'TABELAFRETE': '', 'PESOTOTAL': '', 'QUANTIDADETOTAL': '', 'CUBAGEM': '', 'DATA': '', 'ALLIEX': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'DIRECIONAL': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'MID': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'RODONAVES': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'TRANSREIS': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}}
+            print(erro)
+            pedido_info = {'PEDIDO': '', 'NOME': '', 'CPF': '', 'RUA': '', 'BAIRRO': '', 'CIDADE': '', 'CEP': '', 'UF': '', 'MARCKETPLACE': '', 'TOTALPEDIDO': '', 'VALORFRETE': '', 'FORMAPAGAMENTO': '', 'PRAZOENTREGA': '', 'TABELAFRETE': '', 'PESOTOTAL': '', 'QUANTIDADETOTAL': '', 'CUBAGEM': '', 'DATA': '', 'ALLIEX': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'DIRECIONAL': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'MID': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'RODONAVES': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}, 'TRANSREIS': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''},'SAOMIGUEL': {'COTACAO': '', 'VALOR': '', 'PRAZO': '', 'MEDIDAS': ''}}
         
         finally:
             conexao.close()
@@ -173,6 +189,7 @@ class Banco:
             conexao.close()
             
     def salvaCotacaoNoPedido(TRANSPORTADORA=dict()):
+        
         try:
             DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
@@ -191,6 +208,18 @@ class Banco:
             
             
     def alteraTransportdoraNoBanco(TRANSPORTADORA=dict()):
+        try:
+            DATA_AUTAL = strftime("%Y-%m-%d")
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            
+            cursor.execute(f"INSERT INTO COTACAO_UTILIZADAS (PEDIDO ,TRANSPORTADORA,VALORFRETE,VALORFRETETRANSPORTADORA,CIDADE,ESTADO,DATA_COTACAO)  VALUES ( '{TRANSPORTADORA['PEDIDO']}','{TRANSPORTADORA['TRANSPOTADORA']}','{TRANSPORTADORA['FRETECLIENTE']}','{TRANSPORTADORA['FRETETRANSPORTADORA']}','{TRANSPORTADORA['CIDADE']}','{TRANSPORTADORA['ESTADO']}','{DATA_AUTAL}')")
+            conexao.commit()
+            
+
+        except :
+            pass
+        
         try:
             DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
@@ -219,7 +248,7 @@ class Banco:
         return resultado
     
     
-    def getDataCotacaoSalvas(dataInicial,dataFinal,TRANSPORTADORA):
+    def getDataCotacaoSalvas(dataInicial,dataFinal,TRANSPORTADORA,cidade,estado):
 
         ano = dataInicial[6]+dataInicial[7]+dataInicial[8]+dataInicial[9]
         mes = dataInicial[3]+dataInicial[4]
@@ -230,13 +259,26 @@ class Banco:
         mes = dataFinal[3]+dataFinal[4]
         dia = dataFinal[0]+dataFinal[1]
         dataFinal = str(f"{ano}-{mes}-{dia}")
+
+        if(cidade):
+            cidade = "AND CIDADE = '{}'".format(cidade)
+        else:
+            cidade = ''
         
-        print(dataFinal ,dataInicial )
+        if(estado) :
+            estado = "AND ESTADO = '{}'".format(estado)
+        else:
+            estado = ''
+            
+            
+            
         
         if TRANSPORTADORA == '*':
-            sql = str(f"SELECT * FROM COTACAO_UTILIZADAS WHERE DATA_COTACAO BETWEEN '{dataInicial}' AND '{dataFinal}'")
+            sql = str(f"SELECT * FROM COTACAO_UTILIZADAS WHERE DATA_COTACAO BETWEEN '{dataInicial}' AND '{dataFinal}' {cidade} {estado}")
         else:
-            sql = str(f"SELECT * FROM COTACAO_UTILIZADAS WHERE DATA_COTACAO BETWEEN '{dataInicial}' AND '{dataFinal}' AND TRANSPORTADORA = '{TRANSPORTADORA}' ")
+            sql = str(f"SELECT * FROM COTACAO_UTILIZADAS WHERE DATA_COTACAO BETWEEN '{dataInicial}' AND '{dataFinal}' AND TRANSPORTADORA = '{TRANSPORTADORA}' {cidade} {estado} ")
+        
+    
         try:
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
@@ -250,4 +292,26 @@ class Banco:
             conexao.close()
         return resultado
     
+    
+    def getValorDoFrete(numero_Pedido):
+        try:
+            conexao = pymysql.connect(db='wwpneu_01', user='wwpneu_01', passwd='?5CgpDW4+lNf' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            cursor.execute(f"select * from oc_order_total  where order_id='{numero_Pedido}' ;")
+            informacoes = cursor.fetchall()   
+
+        except Exception as erro:
+            pass
+        
+        finally:
+            conexao.close()
+        
+        for opcoes in informacoes:
+            if opcoes[2] == 'shipping':
+                frete = opcoes[5]
+                frete = "%.2f" % frete
+        if frete == '':
+            frete = 00.00
+    
+        return frete
     

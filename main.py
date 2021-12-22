@@ -32,9 +32,11 @@ from modules import *
 from widgets import *
 from modules import ui_popUP
 from modules import ui_popUP_Duplicado
+from modules import ui_vincularCotacao
 from banco.consultas import Banco
 import pandas as pd
 from controle.gerar_cotacao import *
+from controle.apiCep import *
 from time import gmtime, strftime
 
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
@@ -43,7 +45,83 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # ///////////////////////////////////////////////////////////////
 widgets = None
 widgets_PopUP_Duplicado = None
+widgets_vinvulaPedido = None
 lista_produtos = []
+
+class VincularCotaccao(QMainWindow):
+    def __init__(self,TRANSPORTADORA , COTACAO,PRAZO,VALOR,CEP):
+        QMainWindow.__init__(self)
+        self.ui = ui_vincularCotacao.Ui_Ui_VinculaPedido()
+        self.ui.setupUi(self)
+        global widgets_vinvulaPedido
+        widgets_vinvulaPedido = self.ui
+        Settings.ENABLE_CUSTOM_TITLE_BAR = True
+        UIFunctions.uiDefinitions(self)
+        self.transporte = TRANSPORTADORA
+        self.COTACAO = COTACAO
+        self.VALOR = VALOR
+        self.PRAZO = PRAZO
+        self.CEP = CEP
+        
+        widgets_vinvulaPedido.lineEdit_2.setText(QCoreApplication.translate("MainWindow", u"{}".format(TRANSPORTADORA), None))
+        widgets_vinvulaPedido.lineEdit_3.setText(QCoreApplication.translate("MainWindow", u"{}".format(COTACAO), None))
+        widgets_vinvulaPedido.lineEdit_4.setText(QCoreApplication.translate("MainWindow", u"{}".format(VALOR), None))
+        widgets_vinvulaPedido.lineEdit_5.setText(QCoreApplication.translate("MainWindow", u"{}".format(PRAZO), None))
+        
+        widgets_vinvulaPedido.pushButton.clicked.connect(self.buttonClick)
+        widgets_vinvulaPedido.pushButton_2.clicked.connect(self.buttonClick)
+
+    def salvaCotacaoComPedido(self):
+        apicep = API_CEP(self.CEP)
+        try:
+            cidade = str(apicep['localidade']).upper()
+        except:
+            cidade = 'CIDADE'
+        try:
+            estado = str(apicep['localidade']).upper()
+        except:
+            estado = 'ESTADO'
+            
+        numeroPedido = widgets_vinvulaPedido.lineEdit.text()
+       
+        frete_pedido = Banco.getValorDoFrete(int(numeroPedido))
+        
+        TRANSPORTADORA = dict()
+        TRANSPORTADORA['PEDIDO'] = numeroPedido
+        TRANSPORTADORA['TRANSPOTADORA'] = self.transporte
+        TRANSPORTADORA['FRETECLIENTE'] = 0
+        TRANSPORTADORA['FRETETRANSPORTADORA'] = self.VALOR
+        TRANSPORTADORA['CIDADE'] = cidade
+        TRANSPORTADORA['ESTADO'] = estado
+        
+        
+        Banco.alteraTransportdoraNoBanco(TRANSPORTADORA)
+    
+
+        
+    def buttonClick(self):
+        # GET BUTTON CLICKED
+        btn = self.sender()
+        btnName = btn.objectName()
+
+        TRANSPORTADORA = self.transporte
+            
+        if btnName == "pushButton":
+            VincularCotaccao.salvaCotacaoComPedido(self)
+            self.hide()
+            Sucesso = Pop_Up()
+            Sucesso.show()
+            
+        
+        if btnName == "pushButton_2":
+            self.hide()
+            
+        
+            
+                   
+        
+            
+        
 
 class popUp_Duplicado(QMainWindow):
     def __init__(self,TRANSPORTADORA):
@@ -78,8 +156,8 @@ class popUp_Duplicado(QMainWindow):
                    
         elif btnName == "pushButton_3":
             self.hide()
-        print(f'Button "{btnName}" pressed!')
             
+      
 
 class Pop_Up(QMainWindow):
     def __init__(self):
@@ -140,17 +218,25 @@ class MainWindow(QMainWindow):
         widgets.btn_widgets.clicked.connect(self.buttonClick)
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_share.clicked.connect(self.buttonClick)
+    
         
         
         #GERAR COTACAO
         widgets.gerar_cotacao_btn.clicked.connect(self.gerarCotacao)
         widgets.pushButton_2.clicked.connect(self.tabela_cubagem)
-        #widgets.pushButton_4.clicked.connect(self.lemparTelaCotacao)
+        widgets.pushButton_3.clicked.connect(self.buttonClick)
+        widgets.pushButton_9.clicked.connect(self.buttonClick)
+        widgets.pushButton_10.clicked.connect(self.buttonClick)
+        widgets.pushButton_11.clicked.connect(self.buttonClick)
+        widgets.pushButton_12.clicked.connect(self.buttonClick)
+        
+        widgets.pushButton_4.clicked.connect(self.lemparTelaCotacao)
        
         
         #BUSCAR COTACAO
         widgets.pushButton.clicked.connect(self.buscarCotacao)
         widgets.pushButton_5.clicked.connect(self.salvaRodonaves)
+        widgets.pushButton_31.clicked.connect(self.salvaSaoMiguel)
         widgets.pushButton_32.clicked.connect(self.salvaAlliex)
         widgets.pushButton_33.clicked.connect(self.salvaTransreis)
         widgets.pushButton_34.clicked.connect(self.salvaMID)
@@ -159,6 +245,7 @@ class MainWindow(QMainWindow):
         #RELATORIO COTAXAO
         widgets.pushButton_7.clicked.connect(self.gerarRelatorioCotacoes)
         widgets.pushButton_6.clicked.connect(self.salvaRelatorio)
+        widgets.pushButton_8.clicked.connect(self.limpaTelaRelatorio)
     
 
         # EXTRA LEFT BOX
@@ -170,7 +257,7 @@ class MainWindow(QMainWindow):
         # EXTRA RIGHT BOX
         def openCloseRightBox():
             UIFunctions.toggleRightBox(self, True)
-        widgets.settingsTopBtn.clicked.connect(openCloseRightBox)
+        #widgets.settingsTopBtn.clicked.connect(openCloseRightBox)
 
         # SHOW APP
         # ///////////////////////////////////////////////////////////////
@@ -202,7 +289,6 @@ class MainWindow(QMainWindow):
         numeroPedido = widgets.lineEdit.text()
         informacoes = Banco.getInformacoesCotacao(numeroPedido)
         self.info = informacoes
-        print(informacoes)
         melhor_valor = MainWindow.melhorValor_busca(informacoes)
         melhor_prazo = MainWindow.melhorPrazo_busca(informacoes)
         
@@ -231,6 +317,12 @@ class MainWindow(QMainWindow):
             widgets.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora Transreis", None))
             widgets.lineEdit_2.setStyleSheet(u"background-color: rgb(204, 85, 179);")
             widgets.lineEdit_10.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(melhor_valor['VALOR']), None)) #cotacao
+      
+        elif melhor_valor['TRANSPORTADORA'] == 'SAOMIGUEL':
+            widgets.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora Expresso São Miguel", None))
+            widgets.lineEdit_2.setStyleSheet(u"background-color: rgb(82, 153, 0);")
+            widgets.lineEdit_10.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(melhor_valor['VALOR']), None)) #cotacao
+        
         else:
             widgets.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora ", None))
             widgets.lineEdit_2.setStyleSheet(u"")
@@ -261,6 +353,11 @@ class MainWindow(QMainWindow):
             widgets.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora Transreis", None))
             widgets.lineEdit_3.setStyleSheet(u"background-color: rgb(204, 85, 179);")
             widgets.lineEdit_6.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} Dias".format(melhor_prazo['PRAZO']), None)) #cotacao
+      
+        elif melhor_prazo['TRANSPORTADORA'] == 'SAOMIGUEL':
+            widgets.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora Expresso São Miguel", None))
+            widgets.lineEdit_3.setStyleSheet(u"background-color: rgb(82, 153, 0);")
+            widgets.lineEdit_6.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} Dias".format(melhor_prazo['PRAZO']), None)) #cotacao
         else:
             widgets.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Transportadora ", None))
             widgets.lineEdit_3.setStyleSheet(u"")
@@ -268,9 +365,9 @@ class MainWindow(QMainWindow):
         
         #
         widgets.lineEdit_7.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['NOME']), None))
-        widgets.lineEdit_4.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['PRAZOENTREGA']), None))
-        widgets.lineEdit_9.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['VALORFRETE']), None))
-        widgets.lineEdit_8.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['TOTALPEDIDO']), None))
+        widgets.lineEdit_4.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['PRAZOENTREGA']), None))
+        widgets.lineEdit_9.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoes['VALORFRETE']), None))
+        widgets.lineEdit_8.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoes['TOTALPEDIDO']), None))
         widgets.lineEdit_5.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CPF']), None))
         widgets.lineEdit_45.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['TABELAFRETE']), None))
         
@@ -282,6 +379,15 @@ class MainWindow(QMainWindow):
         widgets.lineEdit_225.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(str(informacoes['RODONAVES']['VALOR'])).replace('.',','), None))
         widgets.lineEdit_226.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['RODONAVES']['PRAZO']), None))
         widgets.lineEdit_229.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['RODONAVES']['MEDIDAS']), None))
+        
+        #SAOMIGUEL
+        widgets.lineEdit_235.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CIDADE']), None))
+        widgets.lineEdit_236.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['QUANTIDADETOTAL']), None))
+        widgets.lineEdit_238.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CUBAGEM']), None))
+        widgets.lineEdit_232.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['SAOMIGUEL']['COTACAO']), None))
+        widgets.lineEdit_233.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(str(informacoes['SAOMIGUEL']['VALOR'])).replace('.',','), None))
+        widgets.lineEdit_234.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['SAOMIGUEL']['PRAZO']), None))
+        widgets.lineEdit_237.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['SAOMIGUEL']['MEDIDAS']), None))
         
         #ALLIEX
         widgets.lineEdit_243.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CIDADE']), None))
@@ -325,6 +431,7 @@ class MainWindow(QMainWindow):
         mid = cotacoes['MID']['VALOR']
         direcional = cotacoes['DIRECIONAL']['VALOR']
         transreis = cotacoes['TRANSREIS']['VALOR']
+        sao_miguel = cotacoes['SAOMIGUEL']['VALOR']
         
         try:
             rte = float(rte)
@@ -350,6 +457,10 @@ class MainWindow(QMainWindow):
             transreis = float(transreis)
         except:
             transreis = 10000
+        try:
+            sao_miguel = float(transreis)
+        except:
+            sao_miguel = 10000
             
         lista_prazos = list()
         lista_prazos.append(rte)
@@ -357,6 +468,7 @@ class MainWindow(QMainWindow):
         lista_prazos.append(mid)
         lista_prazos.append(direcional)
         lista_prazos.append(transreis)
+        lista_prazos.append(sao_miguel)
       
         lista_organizada = sorted(lista_prazos, key=int)
         
@@ -383,6 +495,9 @@ class MainWindow(QMainWindow):
         
         elif lista_organizada[0] == transreis:
             retorno = {'TRANSPORTADORA': 'TRANSREIS','VALOR': lista_organizada[0]}
+        
+        elif lista_organizada[0] == sao_miguel:
+            retorno = {'TRANSPORTADORA': 'SAOMIGUEL','VALOR': lista_organizada[0]}
         else:
             retorno = {'TRANSPORTADORA': '','VALOR': 0}
             
@@ -404,6 +519,10 @@ class MainWindow(QMainWindow):
         transreis = cotacoes['TRANSREIS']['PRAZO']
         if transreis == 0 :
             transreis = 1000
+        
+        saoMiguel = cotacoes['SAOMIGUEL']['PRAZO']
+        if saoMiguel == 0 :
+            saoMiguel = 1000
         
         try:
             rte = int(rte)
@@ -429,6 +548,10 @@ class MainWindow(QMainWindow):
             transreis = int(transreis)
         except:
             transreis = 100
+        try:
+            saoMiguel = int(saoMiguel)
+        except:
+            saoMiguel = 100
             
         lista_prazos = list()
         lista_prazos.append(rte)
@@ -436,6 +559,7 @@ class MainWindow(QMainWindow):
         lista_prazos.append(mid)
         lista_prazos.append(direcional)
         lista_prazos.append(transreis)
+        lista_prazos.append(saoMiguel)
       
         lista_organizada = sorted(lista_prazos, key=int)
         
@@ -453,6 +577,10 @@ class MainWindow(QMainWindow):
         
         elif lista_organizada[0] == transreis:
             retorno = {'TRANSPORTADORA': 'TRANSREIS','PRAZO': lista_organizada[0]}
+        
+        elif lista_organizada[0] == saoMiguel:
+            retorno = {'TRANSPORTADORA': 'SAOMIGUEL','PRAZO': lista_organizada[0]}
+       
         else:
             retorno = {'TRANSPORTADORA': '','PRAZO': 0}
             
@@ -544,10 +672,25 @@ class MainWindow(QMainWindow):
         
         MainWindow.verificaCotacaSalvas(Pedido,TRANSPORTADORA)
     
+    def salvaSaoMiguel(self):
+        Pedido= widgets.lineEdit.text()
+        informacoes = self.info
+        TRANSPORTADORA = dict()
+        TRANSPORTADORA['PEDIDO'] = Pedido
+        TRANSPORTADORA['TRANSPOTADORA'] = 'SAO MIGUEL'
+        TRANSPORTADORA['FRETECLIENTE'] = informacoes['VALORFRETE']
+        TRANSPORTADORA['FRETETRANSPORTADORA'] = informacoes['SAOMIGUEL']['VALOR']
+        TRANSPORTADORA['FRETETRANSPORTADORA'] = informacoes['SAOMIGUEL']['VALOR']
+        TRANSPORTADORA['CIDADE'] = informacoes['CIDADE']
+        TRANSPORTADORA['ESTADO'] = informacoes['UF']
+        
+        MainWindow.verificaCotacaSalvas(Pedido,TRANSPORTADORA)
+    
     def limpatelacotacoes():
         widgets.lineEdit_3.setStyleSheet(u"")
         widgets.lineEdit_2.setStyleSheet(u"")
         widgets.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None)) #NOME
+        widgets.lineEdit_45.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None)) #NOME
         widgets.lineEdit_10.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None)) #NOME
         widgets.lineEdit_10.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None)) #NOME
         widgets.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None)) #NOME
@@ -727,6 +870,10 @@ class MainWindow(QMainWindow):
         widgets.lineEdit_37.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(cotacoes.direcional['VALOR']), None))
         widgets.lineEdit_38.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(cotacoes.direcional['PRAZO']), None))
         
+        self.cotacoesGerados = cotacoes
+        self.cotacoesGeradosCEP = cep
+
+
         lista_produtos.clear()
     
     def lemparTelaCotacao(self):
@@ -999,12 +1146,15 @@ class MainWindow(QMainWindow):
 # ///////////////////////////////////////////////////
 
     def gerarRelatorioCotacoes(self):
+        cidade = widgets.lineEdit_46.text()
+        estado = widgets.comboBox_2.currentText()
+        
         dataInicial = widgets.lineEdit_47.text()
         dataFinal = widgets.lineEdit_49.text()
         comboBox = widgets.comboBox.currentText()
         transportadora = MainWindow.selecaofiltro(comboBox)
 
-        informacoes_cotacoes = Banco.getDataCotacaoSalvas(dataInicial,dataFinal,transportadora)
+        informacoes_cotacoes = Banco.getDataCotacaoSalvas(dataInicial,dataFinal,transportadora,cidade,estado)
         widgets.tableWidget.setRowCount(len(informacoes_cotacoes))
         
         row=0
@@ -1034,6 +1184,13 @@ class MainWindow(QMainWindow):
 
         diferenca = total_cliente - total_Transporte
 
+        if diferenca < 0 :
+            widgets.lineEdit_53.setStyleSheet(u"background-color: rgb(227, 38, 0);")
+        else:
+            widgets.lineEdit_53.setStyleSheet(u"background-color: rgb(100, 151, 0);")
+
+            
+        widgets.label_52.setText(QCoreApplication.translate("MainWindow", u"Resultados: {} resultados encontrados".format(row), None))
         
         widgets.lineEdit_48.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {:.2f}".format(total_cliente), None))
         widgets.lineEdit_52.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {:.2f}".format(total_Transporte), None))
@@ -1058,6 +1215,8 @@ class MainWindow(QMainWindow):
         return transporte
 
     def salvaRelatorio(relatorio):
+        cidade = widgets.lineEdit_46.text()
+        estado = widgets.comboBox_2.currentText()
         nomeSalvo = QtWidgets.QFileDialog.getSaveFileName()[0]
 
         dataInicial = widgets.lineEdit_47.text()
@@ -1065,7 +1224,7 @@ class MainWindow(QMainWindow):
         comboBox = widgets.comboBox.currentText()
         transportadora = MainWindow.selecaofiltro(comboBox)
 
-        informacoes_cotacoes = Banco.getDataCotacaoSalvas(dataInicial,dataFinal,transportadora)
+        informacoes_cotacoes = Banco.getDataCotacaoSalvas(dataInicial,dataFinal,transportadora,cidade,estado)
         
         relatorio = dict()
         
@@ -1107,7 +1266,19 @@ class MainWindow(QMainWindow):
         relatorio.to_excel(datatoexcel,index=False)
         datatoexcel.save()
         
-
+    def limpaTelaRelatorio(self):
+        widgets.lineEdit_47.clear()
+        widgets.lineEdit_49.clear()
+        widgets.lineEdit_46.clear()
+        widgets.lineEdit_48.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(''), None))
+        widgets.lineEdit_52.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(''), None))
+        widgets.lineEdit_53.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(''), None))
+        widgets.lineEdit_53.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        widgets.label_52.setText(QCoreApplication.translate("MainWindow", u"Resultados:", None))
+        widgets.tableWidget.setRowCount(0)
+        widgets.tableWidget.clearContents()
+       
+        
 # ///////////////////////////////////////////////////
 # ////////////// # FIM RELATORIO COTACOES ///////////
 # ///////////////////////////////////////////////////
@@ -1143,7 +1314,40 @@ class MainWindow(QMainWindow):
             widgets.stackedWidget.setCurrentWidget(widgets.GerarRelatorio) # SET PAGE
             UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+        
+        if btnName == "pushButton_3":
+            rte = self.cotacoesGerados.rte
+            cep = self.cotacoesGeradosCEP
+            cotacao = VincularCotaccao('RODONAVES',rte['N_COTACAO'],rte['PRAZO'],rte['VALOR'],cep )
+            cotacao.show()
+        
+        if btnName == "pushButton_9":
+            alliex = self.cotacoesGerados.alliex
+            cep = self.cotacoesGeradosCEP
+            cotacao = VincularCotaccao('ALLIEX',alliex['N_COTACAO'],alliex['PRAZO'],alliex['VALOR'],cep)
+            cotacao.show()
 
+        
+        if btnName == "pushButton_10":
+            transreis = self.cotacoesGerados.transreis
+            cep = self.cotacoesGeradosCEP
+            cotacao = VincularCotaccao('TRANSREIS',transreis['N_COTACAO'],transreis['PRAZO'],transreis['VALOR'],cep)
+            cotacao.show()
+
+        
+        if btnName == "pushButton_11":
+            mid = self.cotacoesGerados.mid
+            cep = self.cotacoesGeradosCEP
+            cotacao = VincularCotaccao('MID',mid['N_COTACAO'],mid['PRAZO'],mid['VALOR'],cep)
+            cotacao.show()
+        
+        if btnName == "pushButton_12":
+            direceional = self.cotacoesGerados.direcional
+            cep = self.cotacoesGeradosCEP
+            cotacao = VincularCotaccao('DIRECIONAL',direceional['N_COTACAO'],direceional['PRAZO'],direceional['VALOR'],cep)
+            cotacao.show()
+        
+            
     # RESIZE EVENTS
     # ///////////////////////////////////////////////////////////////
     def resizeEvent(self, event):

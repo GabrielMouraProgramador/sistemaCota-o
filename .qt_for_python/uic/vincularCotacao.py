@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'popUP.ui'
+## Form generated from reading UI file 'vincularCotacao.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.1.3
 ##
@@ -14,14 +14,14 @@ from PySide6.QtWidgets import *  # type: ignore
 
 import resources_rc
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(500, 250)
-        MainWindow.setMinimumSize(QSize(500, 250))
-        MainWindow.setMaximumSize(QSize(500, 250))
-        self.styleSheet = QWidget(MainWindow)
+class Ui_Ui_VinculaPedido(object):
+    def setupUi(self, Ui_VinculaPedido):
+        if not Ui_VinculaPedido.objectName():
+            Ui_VinculaPedido.setObjectName(u"Ui_VinculaPedido")
+        Ui_VinculaPedido.resize(500, 250)
+        Ui_VinculaPedido.setMinimumSize(QSize(500, 250))
+        Ui_VinculaPedido.setMaximumSize(QSize(500, 250))
+        self.styleSheet = QWidget(Ui_VinculaPedido)
         self.styleSheet.setObjectName(u"styleSheet")
         self.styleSheet.setMinimumSize(QSize(500, 250))
         self.styleSheet.setMaximumSize(QSize(500, 250))
@@ -603,7 +603,7 @@ class Ui_MainWindow(object):
         self.titleRightInfo.setSizePolicy(sizePolicy1)
         self.titleRightInfo.setMaximumSize(QSize(16777215, 45))
         self.titleRightInfo.setFont(font)
-        self.titleRightInfo.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.titleRightInfo.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.titleRightInfo)
 
@@ -645,49 +645,103 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.contentBottom)
-        self.label_2.setObjectName(u"label_2")
-
-        self.verticalLayout_6.addWidget(self.label_2)
-
-        self.label = QLabel(self.contentBottom)
+        self.verticalFrame = QFrame(self.contentBottom)
+        self.verticalFrame.setObjectName(u"verticalFrame")
+        self.verticalFrame.setMinimumSize(QSize(0, 130))
+        self.verticalLayout = QVBoxLayout(self.verticalFrame)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.label = QLabel(self.verticalFrame)
         self.label.setObjectName(u"label")
 
-        self.verticalLayout_6.addWidget(self.label)
+        self.horizontalLayout_7.addWidget(self.label)
 
-        self.content = QFrame(self.contentBottom)
-        self.content.setObjectName(u"content")
-        self.content.setFrameShape(QFrame.NoFrame)
-        self.content.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_4 = QHBoxLayout(self.content)
-        self.horizontalLayout_4.setSpacing(0)
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit = QLineEdit(self.verticalFrame)
+        self.lineEdit.setObjectName(u"lineEdit")
+
+        self.horizontalLayout_7.addWidget(self.lineEdit)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.pushButton = QPushButton(self.content)
+        self.label_2 = QLabel(self.verticalFrame)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_5.addWidget(self.label_2)
+
+        self.lineEdit_2 = QLineEdit(self.verticalFrame)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lineEdit_2.setEnabled(False)
+
+        self.horizontalLayout_5.addWidget(self.lineEdit_2)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.label_4 = QLabel(self.verticalFrame)
+        self.label_4.setObjectName(u"label_4")
+
+        self.horizontalLayout_6.addWidget(self.label_4)
+
+        self.lineEdit_3 = QLineEdit(self.verticalFrame)
+        self.lineEdit_3.setObjectName(u"lineEdit_3")
+        self.lineEdit_3.setEnabled(False)
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_3)
+
+        self.label_3 = QLabel(self.verticalFrame)
+        self.label_3.setObjectName(u"label_3")
+
+        self.horizontalLayout_6.addWidget(self.label_3)
+
+        self.lineEdit_4 = QLineEdit(self.verticalFrame)
+        self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.lineEdit_4.setEnabled(False)
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_4)
+
+        self.label_5 = QLabel(self.verticalFrame)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_6.addWidget(self.label_5)
+
+        self.lineEdit_5 = QLineEdit(self.verticalFrame)
+        self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.lineEdit_5.setEnabled(False)
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_5)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.pushButton = QPushButton(self.verticalFrame)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMaximumSize(QSize(170, 16777215))
         self.pushButton.setStyleSheet(u"background-color: rgb(52, 59, 72);\n"
 "border-radius: 10px;\n"
 "height:25 px;")
 
-        self.horizontalLayout_5.addWidget(self.pushButton)
+        self.horizontalLayout_4.addWidget(self.pushButton)
 
-        self.pushButton_2 = QPushButton(self.content)
+        self.pushButton_2 = QPushButton(self.verticalFrame)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setMaximumSize(QSize(170, 16777215))
         self.pushButton_2.setStyleSheet(u"background-color: rgb(52, 59, 72);\n"
 "border-radius: 10px;\n"
 "height:25 px;")
 
-        self.horizontalLayout_5.addWidget(self.pushButton_2)
+        self.horizontalLayout_4.addWidget(self.pushButton_2)
 
 
-        self.horizontalLayout_4.addLayout(self.horizontalLayout_5)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
 
 
-        self.verticalLayout_6.addWidget(self.content)
+        self.verticalLayout_6.addWidget(self.verticalFrame)
 
 
         self.verticalLayout_2.addWidget(self.contentBottom)
@@ -698,23 +752,33 @@ class Ui_MainWindow(object):
 
         self.appMargins.addWidget(self.bgApp)
 
-        MainWindow.setCentralWidget(self.styleSheet)
+        Ui_VinculaPedido.setCentralWidget(self.styleSheet)
+        QWidget.setTabOrder(self.lineEdit, self.pushButton)
+        QWidget.setTabOrder(self.pushButton, self.pushButton_2)
+        QWidget.setTabOrder(self.pushButton_2, self.closeAppBtn)
+        QWidget.setTabOrder(self.closeAppBtn, self.lineEdit_2)
+        QWidget.setTabOrder(self.lineEdit_2, self.lineEdit_3)
+        QWidget.setTabOrder(self.lineEdit_3, self.lineEdit_4)
+        QWidget.setTabOrder(self.lineEdit_4, self.lineEdit_5)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(Ui_VinculaPedido)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(Ui_VinculaPedido)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Pedido ja Vinculado a uma cota\u00e7\u00e3o.", None))
+    def retranslateUi(self, Ui_VinculaPedido):
+        Ui_VinculaPedido.setWindowTitle(QCoreApplication.translate("Ui_VinculaPedido", u"MainWindow", None))
+        self.titleRightInfo.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Vincular pedido a cota\u00e7\u00e3o", None))
 #if QT_CONFIG(tooltip)
-        self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
+        self.closeAppBtn.setToolTip(QCoreApplication.translate("Ui_VinculaPedido", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Teste", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Teste2", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Altera", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Cancelar", None))
+        self.label.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Digite o numero do Pedido:", None))
+        self.label_2.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Tranportadora", None))
+        self.label_4.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Cota\u00e7\u00e3o", None))
+        self.label_3.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Valor", None))
+        self.label_5.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Prazo", None))
+        self.pushButton.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Salvar", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Ui_VinculaPedido", u"Cancelar", None))
     # retranslateUi
 

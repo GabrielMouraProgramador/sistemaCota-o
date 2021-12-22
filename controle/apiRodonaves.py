@@ -1,16 +1,13 @@
 import requests
-
+import pymysql
 
 class API_Rodonaves:
     
     def __init__(self,Cep,pesoTotal,valorTotal,quantidadeTotal,cubagem,produtos):
         try:
-            #token = API_Rodonaves.get_token()
-            token = '_lgdFrzuNNFTXoW25BdYriNNyu-CRGebTKHaUjMCWWDkGg9Qy6aqY5o8tqicSDJYVOUKY_Sssfs60xB_CruOx4gSzGpJhG2SelWYU53Dk0i-KJEUUDf0rbOwhF7y2OUORO-mddac1xFNnEn3YkkxHiDzleKT0igRnxWu55_jmq1A_BaOMUxN7_NSMkBG0OKW3K1dsJu3G8OCDp3zsCIK5EMOixzTstCiYVxLfCl3YBmS4tep7DV5UnJ5kR6RDW7q9cuEj46sn_cZk-Eume_Yc3xKg19np8Hn3x2rQyFjDnhc9TyCLivgtRtfwOWUeXPIR7Kl1LisP-G_t-wagdXIbq1gQ2obyD7_mhDP2GVgvDAu4642UUllvJvvln2elNLBdjJzTMPfphRHTHEo9lUbS6jhxyQ5CpjA7sIaY-NZgkFdugYaIZH0M_6yUHVG3imaPdCIHKSDsrKKIoZPqaYGNw'
+            token = API_Rodonaves.busca_token_banco()
             produtos = API_Rodonaves.tratamento_produtos(produtos,cubagem ,pesoTotal ,quantidadeTotal)
-            print('to aqui 1')
             cotacao_crua = API_Rodonaves.cotacao(token,Cep,pesoTotal,valorTotal,quantidadeTotal,produtos)
-            print('to aqui 2')
             cotacao = API_Rodonaves.tratamento_cotacao(cotacao_crua,pesoTotal,cubagem)
             
 
@@ -53,8 +50,6 @@ class API_Rodonaves:
         except:
             id_cidade = 'NAO ANTENDE'
         
-       
-        print(id_cidade)
         return id_cidade
      
     def tratamento_produtos(produtos, cubagem ,pesoTotal ,quantidadeTotal):
@@ -118,8 +113,24 @@ class API_Rodonaves:
         
         return retorno
 
+    def busca_token_banco():
+        try:
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            sql = str(f"SELECT * FROM variaveisGlob;")
+            cursor.execute(sql)
+            resultado = cursor.fetchall()  
+           
+                
+        except Exception as erro:
+            print(f"ERRO BANCO {erro}")
+            pass
+        finally:
+            conexao.close()
+        
+        return resultado[0][0]
+    
     def tratamento_cotacao(cotacao_crua,pesoTotal,cubagem ):
-        print(cotacao_crua)
         if (float(cubagem) > 0.68) or (float(pesoTotal) > 120):
             medidas = 'UTILIZADAS'
         else:
