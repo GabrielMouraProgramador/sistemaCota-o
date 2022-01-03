@@ -1,5 +1,6 @@
 import pymysql
 import requests
+import re
 from time import gmtime, strftime
 
 class CommercePlus:
@@ -15,7 +16,21 @@ class CommercePlus:
             lista_pedidos.append(pedido_aprovados)
             
         self.Pedidos = lista_pedidos
-            
+    
+    def getCep(numeroPedido):
+        try:
+            url = str(f'https://commerceplus.com.br/api/v1/pedidos/{numeroPedido}')
+            headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
+            retorno= requests.get(url, headers=headers)
+            ConteudoPedido = retorno.json()
+            endereco = ConteudoPedido['endereco']
+            cep = endereco['cep']
+            cep = re.sub('[^0-9]', '',cep)
+        except:
+            cep = ''
+        return cep
+        
+        
     def buscaPedidosEnpreparo():
         url = 'https://commerceplus.com.br/api/v1/pedidos?situacao=preparando'
         headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
@@ -39,7 +54,65 @@ class CommercePlus:
             lista_pedido.append(Pedido['idpedido'])
         
         return lista_pedido
+    
+    def buscaPedido(numeroPedido):
+        url = str(f'https://commerceplus.com.br/api/v1/pedidos/{numeroPedido}')
+        headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
+        retorno= requests.get(url, headers=headers)
+        ConteudoPedido = retorno.json()
+        
+        return ConteudoPedido
+    
+    def precoFrete(conteudoPedido):
+        precototal = conteudoPedido['precofrete']
+        precototal = "%.2f" % float(precototal)
+        return precototal
+    
+    def getFrete(numeroPedido):
+        conteudoPedido = CommercePlus.buscaPedido(numeroPedido)
+        precoFrete = CommercePlus.precoFrete(conteudoPedido)
+        return precoFrete
 
+    def getProdutosPedido(numeroPedido):
+        url = str(f'https://commerceplus.com.br/api/v1/pedidos/{numeroPedido}')
+        headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
+        retorno= requests.get(url, headers=headers)
+        ConteudoPedido = retorno.json()
+        
+        
+        Produtos = ConteudoPedido['itens']
+        produtos_dict = dict()
+        lista_de_Id_e_Quantidade = list()
+
+        for produto in Produtos:
+            produtos_dict['product_id'] = produto['subproduto']['codigo']
+            produtos_dict['quantidade'] = produto['qtd']
+            produtos_dict['nome'] = produto['descricao']
+
+            lista_de_Id_e_Quantidade.append(produtos_dict.copy())
+
+
+        
+        produtos_dict = dict()
+        produto_lista = list()
+
+        for produto in lista_de_Id_e_Quantidade:
+            informacoes_produtos = Banco.getInformacoes(f"select * from oc_product where product_id = '{produto['product_id']}';")
+          
+            produtos_dict['product_id'] = produto['product_id']
+            produtos_dict['quantidade'] = produto['quantidade']
+            produtos_dict['nome'] = produto['nome']
+            produtos_dict['model'] = informacoes_produtos[0][1]
+            produtos_dict['model'] = informacoes_produtos[0][1]
+            produtos_dict['peso'] = int(informacoes_produtos[0][18])
+            produtos_dict['comprimento'] = int(informacoes_produtos[0][20])
+            produtos_dict['altura'] = int(informacoes_produtos[0][21])
+            produtos_dict['largura'] = int(informacoes_produtos[0][22])
+
+            produto_lista.append(produtos_dict.copy())
+           
+        return produto_lista
+    
 class Banco:
     def getInformacoes(str=str()):
         try:
@@ -195,7 +268,9 @@ class Banco:
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
             
-            cursor.execute(f"INSERT INTO COTACAO_UTILIZADAS (PEDIDO ,TRANSPORTADORA,VALORFRETE,VALORFRETETRANSPORTADORA,CIDADE,ESTADO,DATA_COTACAO)  VALUES ( '{TRANSPORTADORA['PEDIDO']}','{TRANSPORTADORA['TRANSPOTADORA']}','{TRANSPORTADORA['FRETECLIENTE']}','{TRANSPORTADORA['FRETETRANSPORTADORA']}','{TRANSPORTADORA['CIDADE']}','{TRANSPORTADORA['ESTADO']}','{DATA_AUTAL}')")
+            sql = (f"INSERT INTO COTACAO_UTILIZADAS (PEDIDO ,TRANSPORTADORA,VALORFRETE,VALORFRETETRANSPORTADORA,CIDADE,ESTADO,DATA_COTACAO,MOD_FRETE_CLIENTE,MOD_FRETE_TRANSPORTE)  VALUES ( '{TRANSPORTADORA['PEDIDO']}','{TRANSPORTADORA['TRANSPOTADORA']}','{TRANSPORTADORA['FRETECLIENTE']}','{TRANSPORTADORA['FRETETRANSPORTADORA']}','{TRANSPORTADORA['CIDADE']}','{TRANSPORTADORA['ESTADO']}','{DATA_AUTAL}','{TRANSPORTADORA['FRETECLIENTEMODIFICACAO']}','{TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO']}')")
+
+            cursor.execute(sql)
             conexao.commit()
             
 
@@ -205,26 +280,28 @@ class Banco:
         
         finally:
             conexao.close()
-            
-            
+                      
     def alteraTransportdoraNoBanco(TRANSPORTADORA=dict()):
+        
         try:
             DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
             
-            cursor.execute(f"INSERT INTO COTACAO_UTILIZADAS (PEDIDO ,TRANSPORTADORA,VALORFRETE,VALORFRETETRANSPORTADORA,CIDADE,ESTADO,DATA_COTACAO)  VALUES ( '{TRANSPORTADORA['PEDIDO']}','{TRANSPORTADORA['TRANSPOTADORA']}','{TRANSPORTADORA['FRETECLIENTE']}','{TRANSPORTADORA['FRETETRANSPORTADORA']}','{TRANSPORTADORA['CIDADE']}','{TRANSPORTADORA['ESTADO']}','{DATA_AUTAL}')")
+            sql = (f"INSERT INTO COTACAO_UTILIZADAS (PEDIDO ,TRANSPORTADORA,VALORFRETE,VALORFRETETRANSPORTADORA,CIDADE,ESTADO,DATA_COTACAO,MOD_FRETE_CLIENTE,MOD_FRETE_TRANSPORTE)  VALUES ( '{TRANSPORTADORA['PEDIDO']}','{TRANSPORTADORA['TRANSPOTADORA']}','{TRANSPORTADORA['FRETECLIENTE']}','{TRANSPORTADORA['FRETETRANSPORTADORA']}','{TRANSPORTADORA['CIDADE']}','{TRANSPORTADORA['ESTADO']}','{DATA_AUTAL}','{TRANSPORTADORA['FRETECLIENTEMODIFICACAO']}','{TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO']}')")
+
+            cursor.execute(sql)
             conexao.commit()
             
 
-        except :
+        except:
             pass
         
         try:
             DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
-            cursor.execute(f"UPDATE COTACAO_UTILIZADAS SET PEDIDO = '{TRANSPORTADORA['PEDIDO']}', TRANSPORTADORA = '{TRANSPORTADORA['TRANSPOTADORA']}',VALORFRETE = '{TRANSPORTADORA['FRETECLIENTE']}',VALORFRETETRANSPORTADORA = '{TRANSPORTADORA['FRETETRANSPORTADORA']}' ,CIDADE ='{TRANSPORTADORA['CIDADE']}' ,ESTADO = '{TRANSPORTADORA['ESTADO']}' , DATA_COTACAO = '{DATA_AUTAL}'   WHERE (PEDIDO = '{TRANSPORTADORA['PEDIDO']}');")
+            cursor.execute(f"UPDATE COTACAO_UTILIZADAS SET PEDIDO = '{TRANSPORTADORA['PEDIDO']}', TRANSPORTADORA = '{TRANSPORTADORA['TRANSPOTADORA']}',VALORFRETE = '{TRANSPORTADORA['FRETECLIENTE']}',VALORFRETETRANSPORTADORA = '{TRANSPORTADORA['FRETETRANSPORTADORA']}' ,CIDADE ='{TRANSPORTADORA['CIDADE']}' ,ESTADO = '{TRANSPORTADORA['ESTADO']}' , DATA_COTACAO = '{DATA_AUTAL}',MOD_FRETE_CLIENTE = '{TRANSPORTADORA['FRETECLIENTEMODIFICACAO']}' , MOD_FRETE_TRANSPORTE = '{TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO']}'   WHERE (PEDIDO = '{TRANSPORTADORA['PEDIDO']}');")
             conexao.commit()
 
         except Exception as erro:
@@ -246,8 +323,7 @@ class Banco:
         finally:
             conexao.close()
         return resultado
-    
-    
+       
     def getDataCotacaoSalvas(dataInicial,dataFinal,TRANSPORTADORA,cidade,estado):
 
         ano = dataInicial[6]+dataInicial[7]+dataInicial[8]+dataInicial[9]
@@ -291,7 +367,19 @@ class Banco:
         finally:
             conexao.close()
         return resultado
-    
+      
+    def getCepSite(numero_Pedido):
+        try:
+            informacoes = Banco.getInformacoes(f"select * from oc_order where order_id ='{numero_Pedido}';")
+            id_cliente = informacoes[0][6]
+        
+        
+            informacoes = Banco.getInformacoes(f"select * from oc_address where customer_id ='{id_cliente}';")
+            Cep = str(f"{informacoes[0][10]}")
+            Cep = re.sub('[^0-9]', '',Cep)
+        except:
+            Cep  =''
+        return Cep
     
     def getValorDoFrete(numero_Pedido):
         try:
@@ -314,4 +402,42 @@ class Banco:
             frete = 00.00
     
         return frete
+    
+    def getProdutosPedido(numero_Pedido):
+    
+        Tuple_Produto = Banco.getInformacoes(f"select * from oc_order_product where order_id='{numero_Pedido}';")
+        produtos_dict = dict()
+        lista_de_Id_e_Quantidade = list()
+        
+        for produto in Tuple_Produto:
+   
+            produtos_dict['product_id'] = produto[2]
+            produtos_dict['quantidade'] = produto[5]
+            produtos_dict['nome'] = produto[3]
+
+            lista_de_Id_e_Quantidade.append(produtos_dict.copy())
+       
+
+        
+        produtos_dict = dict()
+        produto_lista = list()
+
+        for produto in lista_de_Id_e_Quantidade:
+            informacoes_produtos = Banco.getInformacoes(f"select * from oc_product where product_id = '{produto['product_id']}';")
+          
+            produtos_dict['product_id'] = produto['product_id']
+            produtos_dict['quantidade'] = produto['quantidade']
+            produtos_dict['nome'] = produto['nome']
+            produtos_dict['model'] = informacoes_produtos[0][1]
+            produtos_dict['model'] = informacoes_produtos[0][1]
+            produtos_dict['peso'] = int(informacoes_produtos[0][18])
+            produtos_dict['comprimento'] = int(informacoes_produtos[0][20])
+            produtos_dict['altura'] = int(informacoes_produtos[0][21])
+            produtos_dict['largura'] = int(informacoes_produtos[0][22])
+
+            produto_lista.append(produtos_dict.copy())
+           
+        return produto_lista
+    
+    
     

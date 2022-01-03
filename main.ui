@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>940</width>
-    <height>652</height>
+    <height>626</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1774,9 +1774,9 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>3</number>
+                      <number>1</number>
                      </property>
-                     <widget class="QWidget" name="Inicio">
+                     <widget class="ConsultaPedido" name="Inicio">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -1785,6 +1785,602 @@ p, li { white-space: pre-wrap; }
 background-position: center;
 background-repeat: no-repeat;</string>
                       </property>
+                     </widget>
+                     <widget class="QWidget" name="consulataPedido">
+                      <layout class="QGridLayout" name="gridLayout_8">
+                       <item row="3" column="0">
+                        <widget class="QWidget" name="horizontalWidget_5" native="true">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>50</height>
+                          </size>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_53">
+                          <item>
+                           <widget class="QLabel" name="label_72">
+                            <property name="text">
+                             <string>Modificação Clinte</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lineEdit_72">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">background-color: rgb(33, 37, 43);</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_73">
+                            <property name="text">
+                             <string>Modificação Transportadora</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lineEdit_73">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">background-color: rgb(33, 37, 43);</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <layout class="QHBoxLayout" name="horizontalLayout_45">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_49">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_47">
+                             <item>
+                              <widget class="QLabel" name="label_53">
+                               <property name="text">
+                                <string>Pedido</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_54">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="pushButton_14">
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(52, 59, 72);</string>
+                             </property>
+                             <property name="text">
+                              <string>BUSCAR PEDIDO</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <layout class="QVBoxLayout" name="verticalLayout_18"/>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_46">
+                             <item>
+                              <widget class="QLabel" name="label_54">
+                               <property name="text">
+                                <string>Nome</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_51">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_38">
+                             <item>
+                              <widget class="QLabel" name="label_55">
+                               <property name="text">
+                                <string>CPF/CNPJ</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_55">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_51">
+                             <item>
+                              <widget class="QLabel" name="label_61">
+                               <property name="text">
+                                <string>Total Pedido</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_60">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_62">
+                               <property name="text">
+                                <string>Frete Cliente</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_61">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_71">
+                               <property name="text">
+                                <string>Prazo Cliente</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_71">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_48">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_50">
+                             <item>
+                              <widget class="QLabel" name="label_59">
+                               <property name="text">
+                                <string>Rua</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_56">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_48">
+                             <item>
+                              <widget class="QLabel" name="label_56">
+                               <property name="text">
+                                <string>Bairro</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_58">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_43">
+                             <item>
+                              <widget class="QLabel" name="label_57">
+                               <property name="text">
+                                <string>Cidade</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_57">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_60">
+                               <property name="text">
+                                <string>UF</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_59">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_49">
+                             <item>
+                              <widget class="QLabel" name="label_58">
+                               <property name="text">
+                                <string>CEP</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_50">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="0">
+                        <layout class="QHBoxLayout" name="horizontalLayout_52">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_58">
+                           <item>
+                            <widget class="QLabel" name="label_63">
+                             <property name="text">
+                              <string>Quantidade total</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_62">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_64">
+                             <property name="text">
+                              <string>Valor Transportadora</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_66">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_54">
+                           <item>
+                            <widget class="QLabel" name="label_67">
+                             <property name="text">
+                              <string>Peso Total</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_64">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_68">
+                             <property name="text">
+                              <string>Numero Cotação</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_67">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_61">
+                           <item>
+                            <widget class="QLabel" name="label_65">
+                             <property name="text">
+                              <string>Medidas</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_65">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_69">
+                             <property name="text">
+                              <string>Prazo Transportadora</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_68">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_59">
+                           <item>
+                            <widget class="QLabel" name="label_66">
+                             <property name="text">
+                              <string>Cubagem</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_63">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_70">
+                             <property name="text">
+                              <string>Data Cotação</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLineEdit" name="lineEdit_69">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">background-color: rgb(33, 37, 43);</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="4" column="0">
+                        <layout class="QHBoxLayout" name="horizontalLayout_56">
+                         <item>
+                          <widget class="QTableWidget" name="tableWidget_3">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>350</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>1000</width>
+                             <height>350</height>
+                            </size>
+                           </property>
+                           <column>
+                            <property name="text">
+                             <string>ID</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Modelo</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Nome</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Quantidade</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Peso</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Altura</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Largura</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string>Comprimento</string>
+                            </property>
+                           </column>
+                           <column>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </column>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QWidget" name="horizontalWidget" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>294</width>
+                             <height>120</height>
+                            </size>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_51">
+                            <item>
+                             <widget class="QLabel" name="label_75">
+                              <property name="text">
+                               <string>Marcketplace</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLineEdit" name="lineEdit_74">
+                              <property name="enabled">
+                               <bool>false</bool>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(33, 37, 43);</string>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_76">
+                              <property name="text">
+                               <string>Diferenca Frete</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLineEdit" name="lineEdit_75">
+                              <property name="enabled">
+                               <bool>false</bool>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(33, 37, 43);</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QWidget" name="horizontalWidget_5" native="true">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777214</width>
+                           <height>50</height>
+                          </size>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_54">
+                          <item>
+                           <widget class="QLabel" name="label_74">
+                            <property name="text">
+                             <string>Transportadora Vinculada</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lineEdit_70">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">background-color: rgb(33, 37, 43);</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
                      </widget>
                      <widget class="QWidget" name="GerarRelatorio">
                       <layout class="QGridLayout" name="gridLayout_4">
@@ -2207,12 +2803,12 @@ background-repeat: no-repeat;</string>
                             </column>
                             <column>
                              <property name="text">
-                              <string>Frete Pago</string>
+                              <string>Frete Cliente</string>
                              </property>
                             </column>
                             <column>
                              <property name="text">
-                              <string>Frete Cliente</string>
+                              <string>Frete Pago</string>
                              </property>
                             </column>
                             <column>
@@ -4720,6 +5316,16 @@ background-repeat: no-repeat;</string>
                               </property>
                              </widget>
                             </item>
+                            <item>
+                             <widget class="QPushButton" name="pushButton_13">
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 59, 72);</string>
+                              </property>
+                              <property name="text">
+                               <string>Vincular Manual</string>
+                              </property>
+                             </widget>
+                            </item>
                            </layout>
                           </item>
                          </layout>
@@ -5731,6 +6337,14 @@ background-repeat: no-repeat;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ConsultaPedido</class>
+   <extends>QWidget</extends>
+   <header>consultapedido.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>btn_home</tabstop>
   <tabstop>btn_widgets</tabstop>

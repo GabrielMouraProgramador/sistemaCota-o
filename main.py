@@ -33,7 +33,10 @@ from widgets import *
 from modules import ui_popUP
 from modules import ui_popUP_Duplicado
 from modules import ui_vincularCotacao
+from modules import ui_vincularCotacaoManual
+from modules import ui_AjusteFrete
 from banco.consultas import Banco
+from banco.consultas import CommercePlus
 import pandas as pd
 from controle.gerar_cotacao import *
 from controle.apiCep import *
@@ -45,7 +48,9 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # ///////////////////////////////////////////////////////////////
 widgets = None
 widgets_PopUP_Duplicado = None
+widgets_ajusteFrete = None
 widgets_vinvulaPedido = None
+widgets_cotacao_Manual = None
 lista_produtos = []
 
 class VincularCotaccao(QMainWindow):
@@ -83,16 +88,22 @@ class VincularCotaccao(QMainWindow):
             estado = 'ESTADO'
             
         numeroPedido = widgets_vinvulaPedido.lineEdit.text()
-       
-        frete_pedido = Banco.getValorDoFrete(int(numeroPedido))
+        
+        if len(numeroPedido) == 6 :
+            frete_pedido = Banco.getValorDoFrete(int(numeroPedido))
+        else:
+            frete_pedido = CommercePlus.getFrete(numeroPedido)
+
         
         TRANSPORTADORA = dict()
         TRANSPORTADORA['PEDIDO'] = numeroPedido
         TRANSPORTADORA['TRANSPOTADORA'] = self.transporte
-        TRANSPORTADORA['FRETECLIENTE'] = 0
+        TRANSPORTADORA['FRETECLIENTE'] = frete_pedido
         TRANSPORTADORA['FRETETRANSPORTADORA'] = self.VALOR
         TRANSPORTADORA['CIDADE'] = cidade
         TRANSPORTADORA['ESTADO'] = estado
+        TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
+        TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
         
         
         Banco.alteraTransportdoraNoBanco(TRANSPORTADORA)
@@ -115,14 +126,104 @@ class VincularCotaccao(QMainWindow):
         
         if btnName == "pushButton_2":
             self.hide()
-            
-        
-            
+               
                    
+class Ui_AjusteFrete(QMainWindow):
+    def __init__(self,TRANSPORTADORA,Pedido):
+        QMainWindow.__init__(self)
+        self.ui = ui_AjusteFrete.Ui_AjusteFrete()
+        self.ui.setupUi(self)
+        global widgets_ajusteFrete
+        widgets_ajusteFrete = self.ui
+        UIFunctions.uiDefinitions(self)
+        self.Transporte = TRANSPORTADORA
+        self.Pedido = Pedido
         
+        widgets_ajusteFrete.lineEdit_5.setText(QCoreApplication.translate("AjusteFrete", u"R$ {}".format(TRANSPORTADORA['FRETECLIENTE']), None))
+        widgets_ajusteFrete.lineEdit_6.setText(QCoreApplication.translate("AjusteFrete", u"R$ {}".format(TRANSPORTADORA['FRETETRANSPORTADORA']), None))
+
+        if TRANSPORTADORA['TRANSPOTADORA'] == 'RODONAVES':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora Rodonaves", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(195, 159, 0);")
+        
+        elif TRANSPORTADORA['TRANSPOTADORA'] == 'ALLIEX':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora Alliex", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(95, 85, 149);")
+        
+        elif TRANSPORTADORA['TRANSPOTADORA'] == 'MID':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora Mid", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(222, 110, 75);")
+            
+        elif TRANSPORTADORA['TRANSPOTADORA'] == 'DIRECIONAL':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora Direcional", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(23, 106, 214);")
+            
+        elif TRANSPORTADORA['TRANSPOTADORA'] == 'TRANSREIS':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora Transreis", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(204, 85, 179);")
+      
+        elif TRANSPORTADORA['TRANSPOTADORA'] == 'SAO MIGUEL':
+            widgets_ajusteFrete.lineEdit_3.setText(QCoreApplication.translate("AjusteFrete", u"Transportadora São Miguel", None))
+            widgets_ajusteFrete.lineEdit_3.setStyleSheet(u"background-color: rgb(82, 153, 0);")
+        
+        
+        widgets_ajusteFrete.pushButton.clicked.connect(self.salvaCotacaoAlterada)
+        widgets_ajusteFrete.pushButton_2.clicked.connect(self.cancelar)
+    
+    def cancelar(self):
+        self.hide()
+    
+    def salvaCotacaoAlterada(self):
+        TRANSPORTADORA = self.Transporte
+        Pedido = self.Pedido
+        acrecimo_desconto_freteCliente = widgets_ajusteFrete.lineEdit_2.text()
+        regraCliente = widgets_ajusteFrete.comboBox.currentText()
+        
+        acrecimo_desconto_freteTransportadora = widgets_ajusteFrete.lineEdit.text()
+        regraTransporte = widgets_ajusteFrete.comboBox_2.currentText()
+        
+        TRANSPORTADORA = Ui_AjusteFrete.tratamentoAjusteFrete(acrecimo_desconto_freteCliente,regraCliente,acrecimo_desconto_freteTransportadora,regraTransporte,TRANSPORTADORA)
+    
+        verifica = Banco.veridicaPedidoSalvo(Pedido)
+        if verifica == ():
+            Banco.salvaCotacaoNoPedido(TRANSPORTADORA)
+            sucesso = Pop_Up()
+            sucesso.show()      
+        else:
+            duplicado = popUp_Duplicado(TRANSPORTADORA)
+            duplicado.show()
+        
+        self.hide()
+    
+    def tratamentoAjusteFrete(acrecimo_desconto_freteCliente,regraCliente,acrecimo_desconto_freteTransportadora,regraTransporte,TRANSPORTADORA):
+
+        if regraCliente == 'Normal':
+            TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"MODIFICAÇÂO: {regraCliente}")
+            
+        elif regraCliente == 'Acréscimo Frete':
+            TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"FRETE CLIENTE: {TRANSPORTADORA['FRETECLIENTE']} MODIFICAÇÂO: {regraCliente} VALOR: {acrecimo_desconto_freteCliente} ")
+            TRANSPORTADORA['FRETECLIENTE'] = float(TRANSPORTADORA['FRETECLIENTE']) + float(str(acrecimo_desconto_freteCliente).replace(",",'.'))
+            
+        elif regraCliente == 'Desconto Frete':
+            TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"FRETE CLIENTE: {TRANSPORTADORA['FRETECLIENTE']} MODIFICAÇÂO: {regraCliente} VALOR: {acrecimo_desconto_freteCliente} ")
+            TRANSPORTADORA['FRETECLIENTE'] = float(TRANSPORTADORA['FRETECLIENTE']) - float(str(acrecimo_desconto_freteCliente).replace(",",'.'))
             
         
+        if regraTransporte == 'Normal':
+            TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"MODIFICAÇÂO: {regraTransporte}")
 
+        elif regraTransporte == 'Acréscimo Frete':
+            TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"FRETE TRANSPORTADORA: {TRANSPORTADORA['FRETETRANSPORTADORA']} MODIFICAÇÂO: {regraTransporte} VALOR: {acrecimo_desconto_freteTransportadora} ")
+            TRANSPORTADORA['FRETETRANSPORTADORA'] = float(TRANSPORTADORA['FRETETRANSPORTADORA']) + float(str(acrecimo_desconto_freteTransportadora).replace(",",'.'))
+        
+        elif regraTransporte == 'Desconto Frete':
+            TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"FRETE TRANSPORTADORA: {TRANSPORTADORA['FRETETRANSPORTADORA']} MODIFICAÇÂO: {regraTransporte} VALOR: {acrecimo_desconto_freteTransportadora} ")
+            TRANSPORTADORA['FRETETRANSPORTADORA'] = float(TRANSPORTADORA['FRETETRANSPORTADORA']) - float(str(acrecimo_desconto_freteTransportadora).replace(",",'.'))
+        
+            
+            
+        return TRANSPORTADORA
+        
 class popUp_Duplicado(QMainWindow):
     def __init__(self,TRANSPORTADORA):
         QMainWindow.__init__(self)
@@ -157,8 +258,57 @@ class popUp_Duplicado(QMainWindow):
         elif btnName == "pushButton_3":
             self.hide()
             
-      
+class VincularCotacaoManuel(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.ui = ui_vincularCotacaoManual.Ui_VinculaPedidoManual()
+        self.ui.setupUi(self)
+        global widgets_cotacao_Manual
+        widgets_cotacao_Manual = self.ui
+        Settings.ENABLE_CUSTOM_TITLE_BAR = True
+        UIFunctions.uiDefinitions(self)
+        
+        widgets_cotacao_Manual.pushButton.clicked.connect(self.salvaManual)
 
+
+    def salvaManual(self):
+        Pedido = widgets_cotacao_Manual.lineEdit.text()
+        Transportadora = widgets_cotacao_Manual.comboBox.currentText()
+        frete_cliente = widgets_cotacao_Manual.lineEdit_3.text()
+        frete_Transporte = widgets_cotacao_Manual.lineEdit_4.text()
+        
+        if len(Pedido) == 6 :
+            cep = Banco.getCepSite(int(Pedido))
+        else:
+            cep = CommercePlus.getCep(Pedido)
+            
+
+        apicep = API_CEP(cep)
+        try:
+            cidade = str(apicep['localidade']).upper()
+        except:
+            cidade = 'CIDADE'
+        try:
+            estado = str(apicep['localidade']).upper()
+        except:
+            estado = 'ESTADO'
+        
+        TRANSPORTADORA = dict()
+        TRANSPORTADORA['PEDIDO'] = Pedido
+        TRANSPORTADORA['TRANSPOTADORA'] = Transportadora
+        TRANSPORTADORA['FRETECLIENTE'] = str(frete_cliente).replace(',','.')
+        TRANSPORTADORA['FRETETRANSPORTADORA'] = str(frete_Transporte).replace(',','.')
+        TRANSPORTADORA['CIDADE'] = cidade
+        TRANSPORTADORA['ESTADO'] = estado
+        TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
+        TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
+        
+        Banco.alteraTransportdoraNoBanco(TRANSPORTADORA)
+
+        self.hide()
+        Sucesso = Pop_Up()
+        Sucesso.show()
+        
 class Pop_Up(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -167,7 +317,7 @@ class Pop_Up(QMainWindow):
         widgets_PopUp = self.ui
         UIFunctions.uiDefinitions(self)
         MainWindow.limpatelacotacoes()
-
+        
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -218,6 +368,7 @@ class MainWindow(QMainWindow):
         widgets.btn_widgets.clicked.connect(self.buttonClick)
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_share.clicked.connect(self.buttonClick)
+        widgets.btn_adjustments.clicked.connect(self.buttonClick)
     
         
         
@@ -231,6 +382,9 @@ class MainWindow(QMainWindow):
         widgets.pushButton_12.clicked.connect(self.buttonClick)
         
         widgets.pushButton_4.clicked.connect(self.lemparTelaCotacao)
+        
+        #BUSCA INFORMACOES PEDIDOS
+        widgets.pushButton_14.clicked.connect(self.buscaInformacoesPedido)
        
         
         #BUSCAR COTACAO
@@ -241,6 +395,7 @@ class MainWindow(QMainWindow):
         widgets.pushButton_33.clicked.connect(self.salvaTransreis)
         widgets.pushButton_34.clicked.connect(self.salvaMID)
         widgets.pushButton_35.clicked.connect(self.salvaDirecional)
+        widgets.pushButton_13.clicked.connect(self.vinvularCotacaoManual)
         
         #RELATORIO COTAXAO
         widgets.pushButton_7.clicked.connect(self.gerarRelatorioCotacoes)
@@ -587,18 +742,13 @@ class MainWindow(QMainWindow):
         return retorno
     
     def verificaCotacaSalvas(Pedido,TRANSPORTADORA):
+       
         if Pedido == '':
             pass
         
         else:
-            verifica = Banco.veridicaPedidoSalvo(Pedido)
-            if verifica == ():
-                Banco.salvaCotacaoNoPedido(TRANSPORTADORA)
-                sucesso = Pop_Up()
-                sucesso.show()      
-            else:
-                duplicado = popUp_Duplicado(TRANSPORTADORA)
-                duplicado.show()
+            ajusteFrete = Ui_AjusteFrete(TRANSPORTADORA,Pedido)
+            ajusteFrete.show()
 
     def salvaAlliex(self):
         informacoes = self.info
@@ -748,7 +898,135 @@ class MainWindow(QMainWindow):
 # ///////////////////////////////////////////////////
 # ////////////// # BUSCAR COTACAO FIM////////////////
 # ///////////////////////////////////////////////////
+    def buscaInformacoesPedido(self):
+        numeroPedido = widgets.lineEdit_54.text()
+        informacoes = Banco.getInformacoesCotacao(numeroPedido)
+        informacoesCotUtilizadas = MainWindow.CotacaoUtilizadas(numeroPedido)
 
+        if len(numeroPedido) == 6:
+            produtos = Banco.getProdutosPedido(numeroPedido)
+        else:
+            produtos = CommercePlus.getProdutosPedido(numeroPedido)
+      
+        widgets.tableWidget_3.setRowCount(len(produtos))
+        row=0
+        for informacoes_tabela in produtos:        
+
+            widgets.tableWidget_3.setItem(row, 0,QTableWidgetItem(str(informacoes_tabela['product_id'])))
+            widgets.tableWidget_3.setItem(row, 1,QTableWidgetItem(str(informacoes_tabela['model'])))
+            widgets.tableWidget_3.setItem(row, 2,QTableWidgetItem(str(informacoes_tabela['nome'])))
+            widgets.tableWidget_3.setItem(row, 3,QTableWidgetItem(str(informacoes_tabela['quantidade'])))
+            widgets.tableWidget_3.setItem(row, 4,QTableWidgetItem(str(informacoes_tabela['peso'])))
+            widgets.tableWidget_3.setItem(row, 5,QTableWidgetItem(str(informacoes_tabela['altura'])))
+            widgets.tableWidget_3.setItem(row, 6,QTableWidgetItem(str(informacoes_tabela['largura'])))
+            widgets.tableWidget_3.setItem(row, 7,QTableWidgetItem(str(informacoes_tabela['comprimento'])))
+            row=row+1
+   
+        
+        if  informacoesCotUtilizadas['TRANSPORTADORA'] == 'RODONAVES':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(195, 159, 0);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['RODONAVES']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['RODONAVES']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['RODONAVES']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+
+        elif informacoesCotUtilizadas['TRANSPORTADORA'] == 'ALLIEX':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(95, 85, 149);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['ALLIEX']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['ALLIEX']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['ALLIEX']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+        
+        elif informacoesCotUtilizadas['TRANSPORTADORA'] == 'MID':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(222, 110, 75);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['MID']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['MID']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['MID']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+        
+        elif informacoesCotUtilizadas['TRANSPORTADORA'] == 'DIRECIONAL':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(23, 106, 214);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['DIRECIONAL']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['DIRECIONAL']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['DIRECIONAL']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+        elif informacoesCotUtilizadas['TRANSPORTADORA'] == 'TRANSREIS':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(204, 85, 179);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['TRANSREIS']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['TRANSREIS']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['TRANSREIS']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+        elif informacoesCotUtilizadas['TRANSPORTADORA'] == 'SAO MIGUEL':
+            widgets.lineEdit_70.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoesCotUtilizadas['TRANSPORTADORA']), None))
+            widgets.lineEdit_70.setStyleSheet(u"background-color: rgb(82, 153, 0);")
+            widgets.lineEdit_65.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['SAOMIGUEL']['MEDIDAS']), None))
+            widgets.lineEdit_67.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['SAOMIGUEL']['COTACAO']), None))
+            widgets.lineEdit_68.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['SAOMIGUEL']['PRAZO']), None))
+            widgets.lineEdit_66.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETETRANSPORTADORA']), None))
+    
+
+        
+        widgets.lineEdit_72.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(str(informacoesCotUtilizadas['MODCLIENTE']).upper().replace('VALOR:','VALOR: R$')), None))
+        widgets.lineEdit_73.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(str(informacoesCotUtilizadas['MODTRANSPORTE']).upper().replace('VALOR:','VALOR: R$')), None))
+
+        
+        
+        widgets.lineEdit_51.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['NOME']), None))
+        widgets.lineEdit_71.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} dias".format(informacoes['PRAZOENTREGA']), None))
+        widgets.lineEdit_61.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoesCotUtilizadas['FRETECLIENTE']), None))
+        widgets.lineEdit_60.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ {}".format(informacoes['TOTALPEDIDO']), None))
+        widgets.lineEdit_55.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CPF']), None))
+        
+        
+        widgets.lineEdit_63.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CUBAGEM']), None))
+        widgets.lineEdit_56.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['RUA']), None))
+        widgets.lineEdit_58.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['BAIRRO']), None))
+        widgets.lineEdit_57.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CIDADE']), None))
+        widgets.lineEdit_59.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['UF']), None))
+        widgets.lineEdit_50.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['CEP']), None))
+        widgets.lineEdit_62.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['QUANTIDADETOTAL']), None))
+        widgets.lineEdit_64.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{} kg".format(int(informacoes['PESOTOTAL'])), None))
+        
+        dataNormal  = str(informacoes['DATA'])
+        ano = dataNormal[0]+dataNormal[1]+dataNormal[2]+dataNormal[3]
+        mes = dataNormal[5]+dataNormal[6]
+        dia = dataNormal[8]+dataNormal[9]
+        dataFormatada = str(f"{dia}/{mes}/{ano}")
+        
+        
+        widgets.lineEdit_69.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(dataFormatada), None))
+        widgets.lineEdit_74.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(informacoes['MARCKETPLACE']), None))
+        widgets.lineEdit_75.setPlaceholderText(QCoreApplication.translate("MainWindow", u"{}".format(float(informacoesCotUtilizadas['FRETECLIENTE']) - float(informacoesCotUtilizadas['FRETETRANSPORTADORA'])), None))
+        
+        diferenca = float(informacoesCotUtilizadas['FRETECLIENTE']) - float(informacoesCotUtilizadas['FRETETRANSPORTADORA'])
+
+        if diferenca < 0 :
+            widgets.lineEdit_75.setStyleSheet(u"background-color: rgb(227, 38, 0);")
+        else:
+            widgets.lineEdit_75.setStyleSheet(u"background-color: rgb(100, 151, 0);")
+            
+    def CotacaoUtilizadas(numeroPedido):
+        
+        informacoes = Banco.veridicaPedidoSalvo(numeroPedido)
+ 
+        INFORMACOES = dict()
+        INFORMACOES['PEDIDO'] = informacoes[0][0]
+        INFORMACOES['TRANSPORTADORA'] = informacoes[0][1]
+        INFORMACOES['FRETECLIENTE'] = informacoes[0][2]
+        INFORMACOES['FRETETRANSPORTADORA'] = informacoes[0][3]
+        INFORMACOES['CIDADE'] = informacoes[0][4]
+        INFORMACOES['ESTADO'] = informacoes[0][5]
+        INFORMACOES['DATA'] = informacoes[0][6]
+        INFORMACOES['MODCLIENTE'] = informacoes[0][7]
+        INFORMACOES['MODTRANSPORTE'] = informacoes[0][8]
+        return  INFORMACOES
+
+        
 #---------------------------------------------------
 #---------------------------------------------------
 
@@ -1123,6 +1401,11 @@ class MainWindow(QMainWindow):
             
         return retorno
        
+    def vinvularCotacaoManual(self):
+        manual = VincularCotacaoManuel()
+        manual.show()
+         
+       
     def calculo_cubagem():
         cubagem = 0
         for produto in lista_produtos:
@@ -1312,6 +1595,11 @@ class MainWindow(QMainWindow):
             
         if btnName == "btn_share":
             widgets.stackedWidget.setCurrentWidget(widgets.GerarRelatorio) # SET PAGE
+            UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
+            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+        
+        if btnName == "btn_adjustments":
+            widgets.stackedWidget.setCurrentWidget(widgets.consulataPedido) # SET PAGE
             UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
         
