@@ -938,6 +938,22 @@ Button */
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="btn_ntf">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>45</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-image: url(:/icons/images/icons/cil-loop-circular.png);</string>
+                  </property>
+                  <property name="text">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
@@ -1774,9 +1790,9 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
-                     <widget class="ConsultaPedido" name="Inicio">
+                     <widget class="QWidget" name="Inicio">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
@@ -2376,6 +2392,365 @@ background-repeat: no-repeat;</string>
                              <string notr="true">background-color: rgb(33, 37, 43);</string>
                             </property>
                            </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="NotificaremTransporte">
+                      <layout class="QGridLayout" name="gridLayout_7">
+                       <item row="2" column="0">
+                        <widget class="QWidget" name="verticalWidget_2" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_61">
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_60">
+                            <item>
+                             <widget class="QTableWidget" name="tableWidget_4">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::HLine</enum>
+                              </property>
+                              <attribute name="horizontalHeaderDefaultSectionSize">
+                               <number>300</number>
+                              </attribute>
+                              <attribute name="verticalHeaderDefaultSectionSize">
+                               <number>25</number>
+                              </attribute>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <column>
+                               <property name="text">
+                                <string>Pedido</string>
+                               </property>
+                              </column>
+                              <column>
+                               <property name="text">
+                                <string>Numero NFE</string>
+                               </property>
+                              </column>
+                              <column>
+                               <property name="text">
+                                <string>Chave NFE</string>
+                               </property>
+                              </column>
+                              <item row="0" column="0">
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="background">
+                                <brush brushstyle="Dense7Pattern">
+                                 <color alpha="255">
+                                  <red>0</red>
+                                  <green>0</green>
+                                  <blue>0</blue>
+                                 </color>
+                                </brush>
+                               </property>
+                              </item>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_82">
+                              <property name="styleSheet">
+                               <string notr="true">font-size:12px;</string>
+                              </property>
+                              <property name="text">
+                               <string>Total :</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLineEdit" name="lineEdit_80">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(33, 37, 43);</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <layout class="QVBoxLayout" name="verticalLayout_55">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_63">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_55">
+                             <item>
+                              <widget class="QLabel" name="label_77">
+                               <property name="text">
+                                <string>Chave NFE </string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_76">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="pushButton_15">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>160</width>
+                                 <height>30</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(52, 59, 72);</string>
+                               </property>
+                               <property name="text">
+                                <string>Adicionar</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_57">
+                             <item>
+                              <widget class="QLabel" name="label_78">
+                               <property name="text">
+                                <string>Pedido</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_77">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_79">
+                               <property name="text">
+                                <string>Numero NFE</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_78">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="pushButton_16">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>160</width>
+                                 <height>30</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(52, 59, 72);</string>
+                               </property>
+                               <property name="text">
+                                <string>Adicionar</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_58">
+                             <item>
+                              <widget class="QWidget" name="widget_2" native="true"/>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_80">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>0</width>
+                                 <height>0</height>
+                                </size>
+                               </property>
+                               <property name="maximumSize">
+                                <size>
+                                 <width>149</width>
+                                 <height>16777215</height>
+                                </size>
+                               </property>
+                               <property name="text">
+                                <string>Quantidade de Pedidos:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_79">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>294</width>
+                                 <height>0</height>
+                                </size>
+                               </property>
+                               <property name="maximumSize">
+                                <size>
+                                 <width>258</width>
+                                 <height>16777215</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(33, 37, 43);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="3" column="0">
+                        <widget class="QWidget" name="horizontalWidget_2" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_60">
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_63">
+                            <item>
+                             <widget class="QLabel" name="label_81">
+                              <property name="text">
+                               <string>Numero Linha</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLineEdit" name="lineEdit_82">
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(33, 37, 43);</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="pushButton_18">
+                              <property name="minimumSize">
+                               <size>
+                                <width>160</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 59, 72);</string>
+                              </property>
+                              <property name="text">
+                               <string>Excluir Pedido</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QWidget" name="widget_3" native="true">
+                              <property name="minimumSize">
+                               <size>
+                                <width>127</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="pushButton_19">
+                              <property name="minimumSize">
+                               <size>
+                                <width>160</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 59, 72);</string>
+                              </property>
+                              <property name="text">
+                               <string>Cancelar</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_62">
+                            <item>
+                             <widget class="QPushButton" name="pushButton_17">
+                              <property name="minimumSize">
+                               <size>
+                                <width>160</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(52, 59, 72);</string>
+                              </property>
+                              <property name="text">
+                               <string>Noficar Pedidos</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </item>
                          </layout>
                         </widget>
@@ -3212,7 +3587,7 @@ background-repeat: no-repeat;</string>
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>790</width>
+                               <width>534</width>
                                <height>659</height>
                               </rect>
                              </property>
@@ -6337,14 +6712,6 @@ background-repeat: no-repeat;</string>
    </layout>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ConsultaPedido</class>
-   <extends>QWidget</extends>
-   <header>consultapedido.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>btn_home</tabstop>
   <tabstop>btn_widgets</tabstop>

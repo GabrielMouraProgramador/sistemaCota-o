@@ -29,8 +29,7 @@ class CommercePlus:
         except:
             cep = ''
         return cep
-        
-        
+               
     def buscaPedidosEnpreparo():
         url = 'https://commerceplus.com.br/api/v1/pedidos?situacao=preparando'
         headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
@@ -113,6 +112,21 @@ class CommercePlus:
            
         return produto_lista
     
+    def verificapedidoExiste(numeroPedido):
+    
+        url = str(f'https://commerceplus.com.br/api/v1/pedidos/{numeroPedido}')
+        headers = { 'accept': 'application/json', 'User': '73NN15240YGDAGA15310YGDAGA1531' , 'Password': 'a6f1f3380c3614dba4798a61b6c132bf'}
+        retorno= requests.get(url, headers=headers)
+        try:
+            ConteudoPedido = retorno.json()
+            resposta = True
+        except:
+            resposta = False
+            
+
+        
+        return resposta
+ 
 class Banco:
     def getInformacoes(str=str()):
         try:
@@ -439,5 +453,36 @@ class Banco:
            
         return produto_lista
     
+    def salvaCotacaoNoPedido(listaPedidos):
+        try:
+        
+            for infoPedidos in listaPedidos: 
+                try:
+                    conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+                    cursor = conexao.cursor()
+                    sql = str(f"INSERT INTO notificarPedido(pedido, numero_nfe, chave_nfe, notificado) VALUES ('{infoPedidos['NPEDIDO']}','{infoPedidos['NNFE']}','{infoPedidos['CHAVENFE']}','0')")
+                    cursor.execute(sql)
+                    conexao.commit()
+                    
+
+                except Exception as erro:
+                    print(f"ERRO BANCO salvaCotacaoNoPedido {erro}")
+                    pass
+                
+                finally:
+                    conexao.close()
+            retorno = True
+
+        except:
+            retorno = False
+            
+        return retorno
     
-    
+    def verificapedidoExiste(pedido):
+        informacoes = Banco.getInformacoes(f"SELECT * FROM `oc_order` WHERE order_id = {pedido}")
+        if informacoes != ():
+            retonot = True
+        else:
+            retonot =False
+        return retonot
+

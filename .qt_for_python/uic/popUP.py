@@ -571,7 +571,23 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.contentTopBg = QFrame(self.contentBox)
+        self.contentBottom = QFrame(self.contentBox)
+        self.contentBottom.setObjectName(u"contentBottom")
+        self.contentBottom.setMaximumSize(QSize(16777215, 16777215))
+        self.contentBottom.setFrameShape(QFrame.NoFrame)
+        self.contentBottom.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.contentBottom)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.frame = QFrame(self.contentBottom)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMaximumSize(QSize(16777215, 65))
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.gridLayout = QGridLayout(self.frame)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.contentTopBg = QFrame(self.frame)
         self.contentTopBg.setObjectName(u"contentTopBg")
         self.contentTopBg.setMinimumSize(QSize(0, 50))
         self.contentTopBg.setMaximumSize(QSize(16777215, 50))
@@ -635,25 +651,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.rightButtons, 0, Qt.AlignRight)
 
 
-        self.verticalLayout_2.addWidget(self.contentTopBg)
+        self.gridLayout.addWidget(self.contentTopBg, 0, 0, 1, 1)
 
-        self.contentBottom = QFrame(self.contentBox)
-        self.contentBottom.setObjectName(u"contentBottom")
-        self.contentBottom.setFrameShape(QFrame.NoFrame)
-        self.contentBottom.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_6 = QVBoxLayout(self.contentBottom)
-        self.verticalLayout_6.setSpacing(0)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.contentBottom)
-        self.label_2.setObjectName(u"label_2")
 
-        self.verticalLayout_6.addWidget(self.label_2)
-
-        self.label = QLabel(self.contentBottom)
-        self.label.setObjectName(u"label")
-
-        self.verticalLayout_6.addWidget(self.label)
+        self.verticalLayout_6.addWidget(self.frame)
 
         self.content = QFrame(self.contentBottom)
         self.content.setObjectName(u"content")
@@ -663,28 +664,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.pushButton = QPushButton(self.content)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMaximumSize(QSize(170, 16777215))
+        self.pushButton.setEnabled(False)
+        self.pushButton.setMinimumSize(QSize(8, 0))
+        self.pushButton.setMaximumSize(QSize(370, 80))
+        self.pushButton.setFocusPolicy(Qt.ClickFocus)
         self.pushButton.setStyleSheet(u"background-color: rgb(52, 59, 72);\n"
-"border-radius: 10px;\n"
-"height:25 px;")
+"border-radius:15;\n"
+"font-size: 17px;")
+        icon1 = QIcon()
+        icon1.addFile(u"../../images/icons/check-icone-1-scaled.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton.setIcon(icon1)
+        self.pushButton.setIconSize(QSize(34, 65))
+        self.pushButton.setAutoRepeatDelay(300)
 
-        self.horizontalLayout_5.addWidget(self.pushButton)
-
-        self.pushButton_2 = QPushButton(self.content)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setMaximumSize(QSize(170, 16777215))
-        self.pushButton_2.setStyleSheet(u"background-color: rgb(52, 59, 72);\n"
-"border-radius: 10px;\n"
-"height:25 px;")
-
-        self.horizontalLayout_5.addWidget(self.pushButton_2)
-
-
-        self.horizontalLayout_4.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_4.addWidget(self.pushButton)
 
 
         self.verticalLayout_6.addWidget(self.content)
@@ -707,14 +702,17 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Pedido ja Vinculado a uma cota\u00e7\u00e3o.", None))
+        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Pedido Salvo com Sucesso ", None))
 #if QT_CONFIG(tooltip)
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Teste", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Teste2", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Altera", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Cancelar", None))
+#if QT_CONFIG(whatsthis)
+        self.pushButton.setWhatsThis("")
+#endif // QT_CONFIG(whatsthis)
+#if QT_CONFIG(accessibility)
+        self.pushButton.setAccessibleName("")
+#endif // QT_CONFIG(accessibility)
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PEDIDO SALVO COM SUCESSO", None))
     # retranslateUi
 

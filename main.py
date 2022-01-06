@@ -52,6 +52,7 @@ widgets_ajusteFrete = None
 widgets_vinvulaPedido = None
 widgets_cotacao_Manual = None
 lista_produtos = []
+lista_pedidos_notificar = []
 
 class VincularCotaccao(QMainWindow):
     def __init__(self,TRANSPORTADORA , COTACAO,PRAZO,VALOR,CEP):
@@ -126,8 +127,7 @@ class VincularCotaccao(QMainWindow):
         
         if btnName == "pushButton_2":
             self.hide()
-               
-                   
+                           
 class Ui_AjusteFrete(QMainWindow):
     def __init__(self,TRANSPORTADORA,Pedido):
         QMainWindow.__init__(self)
@@ -310,13 +310,31 @@ class VincularCotacaoManuel(QMainWindow):
         Sucesso.show()
         
 class Pop_Up(QMainWindow):
-    def __init__(self):
+    def __init__(self,titulo = '',msg = ''):
         QMainWindow.__init__(self)
         self.ui = ui_popUP.Ui_MainWindow_Pop_Up1()
         self.ui.setupUi(self)
         widgets_PopUp = self.ui
         UIFunctions.uiDefinitions(self)
         MainWindow.limpatelacotacoes()
+        if (titulo != ''):
+            widgets_PopUp.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"{}".format(titulo), None))
+        
+        if (msg != ''):
+            widgets_PopUp.pushButton.setText(QCoreApplication.translate("MainWindow", u"{}".format(msg), None))
+
+  
+class Ui_AjusteFrete(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        self.ui = ui_AjusteFrete.Ui_AjusteFrete()
+        self.ui.setupUi(self)
+        global widgets_ajusteFrete
+        widgets_informacoes = self.ui
+        UIFunctions.uiDefinitions(self)
+   
+    
+    
         
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -347,7 +365,6 @@ class MainWindow(QMainWindow):
         
         
         
-
         # TOGGLE MENU
         # ///////////////////////////////////////////////////////////////
         widgets.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
@@ -369,8 +386,16 @@ class MainWindow(QMainWindow):
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_share.clicked.connect(self.buttonClick)
         widgets.btn_adjustments.clicked.connect(self.buttonClick)
-    
+        widgets.btn_ntf.clicked.connect(self.buttonClick)
         
+        # Notificar Pedido
+        widgets.pushButton_16.clicked.connect(self.notificar_em_transporte)
+        widgets.pushButton_15.clicked.connect(self.notificar_em_transporte)
+        widgets.lineEdit_76.returnPressed.connect(self.notificar_em_transporte)
+        widgets.lineEdit_79.returnPressed.connect(self.modificaQuantidadeseguranca)
+        widgets.pushButton_18.clicked.connect(self.excluirPedido)
+        widgets.pushButton_17.clicked.connect(self.notificaPedido)
+        widgets.pushButton_19.clicked.connect(self.cancelarNotificao)
         
         #GERAR COTACAO
         widgets.gerar_cotacao_btn.clicked.connect(self.gerarCotacao)
@@ -436,7 +461,185 @@ class MainWindow(QMainWindow):
         widgets.stackedWidget.setCurrentWidget(widgets.Inicio)
         widgets.btn_home.setStyleSheet(UIFunctions.selectMenu(widgets.btn_home.styleSheet()))
 
+
+# ///////////////////////////////////////////////////
+# ////////////// # NOTIFICAR EM TRANSPORTE  /////////
+# ///////////////////////////////////////////////////
+    def notificar_em_transporte(self):
+        chaveNfe = widgets.lineEdit_76.text()
+        pedido = widgets.lineEdit_77.text()
+        numeroNFE = widgets.lineEdit_78.text()
+        pedidoControle = widgets.lineEdit_79.text()
+        
     
+
+        if (len(chaveNfe) != 44) and (numeroNFE == '') and (pedido == '')  :
+            informativo = Pop_Up('Chave NFE inválida','Por favor , verifique se a CHAVE NFE está certa.')
+            informativo.show()
+            
+        elif  (pedido == '') and (numeroNFE != '') :
+            informativo = Pop_Up('Informe o numero do pedido e da NFE','DADOS INVÁLIDOS')
+            informativo.show()
+            
+        elif  (pedido != '') and (numeroNFE == '') :
+            informativo = Pop_Up('Informe o numero do pedido e da NFE','DADOS INVÁLIDOS')
+            informativo.show()
+            
+        elif  (pedidoControle == '') :
+            informativo = Pop_Up('Informe quantos pedidos deseja notificar.','Quantidade de pedidos invalido.')
+            informativo.show()
+        else:
+            pedidoExiste = MainWindow.verificaPedidoExiste(pedido)
+            
+            if pedidoExiste == True:
+                pedidoNotificar = {}
+                pedidoNotificar['CHAVENFE'] = chaveNfe
+                pedidoNotificar['NNFE'] = numeroNFE
+                pedidoNotificar['NPEDIDO'] = pedido
+                
+                MainWindow.verifica_se_enta_na_lista(pedidoNotificar)
+                
+                widgets.lineEdit_76.clear()
+                widgets.lineEdit_77.clear()
+                widgets.lineEdit_78.clear()
+                
+                widgets.tableWidget_4.setRowCount(len(lista_pedidos_notificar))
+                row=0
+                for informacoes_tabela in lista_pedidos_notificar:        
+
+                    widgets.tableWidget_4.setItem(row, 0,QTableWidgetItem(str(informacoes_tabela['NPEDIDO'])))
+                    widgets.tableWidget_4.setItem(row, 1,QTableWidgetItem(str(informacoes_tabela['NNFE'])))
+                    widgets.tableWidget_4.setItem(row, 2,QTableWidgetItem(str(informacoes_tabela['CHAVENFE'])))
+        
+                    row=row+1
+                
+                widgets.label_82.setText(QCoreApplication.translate("MainWindow", u"Total : {} pedidos".format(len(lista_pedidos_notificar)), None))
+
+                MainWindow.modificaQuantidadeseguranca(self)
+            else:
+                informativo = Pop_Up('Nem um pedido encontrado com esse numero.','PEDIDO INVÁLIDO.')
+                informativo.show()
+    
+    def verifica_se_enta_na_lista(pedidoNotificar):
+        if pedidoNotificar in  lista_pedidos_notificar :
+            informativo = Pop_Up('Pedido já cadastrado nesta lista.','PEDIDO JÁ CADASTRADO')
+            informativo.show()
+        else:
+            lista_pedidos_notificar.append(pedidoNotificar)
+         
+    def modificaQuantidadeseguranca(self):
+        pedidoControle = widgets.lineEdit_79.text()
+        pedidoControle = int(pedidoControle)
+        
+        if pedidoControle != '':
+            if pedidoControle == len(lista_pedidos_notificar) :
+                widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(100, 151, 0);")
+                widgets.pushButton_17.setStyleSheet(u"background-color: rgb(100, 151, 0);")
+                
+                widgets.lineEdit_80.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Tudo certo :) , por favor notifique os clientes.", None))
+
+            else:
+                widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(227, 38, 0);")
+                widgets.pushButton_17.setStyleSheet(u"background-color: rgb(227, 38, 0);")
+                
+                widgets.lineEdit_80.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Números de pedidos cadastrados está diferente do informado.", None))
+
+        else:
+            widgets.pushButton_17.setStyleSheet(u"background-color: rgb(52, 59, 72);")
+            widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+            widgets.lineEdit_80.clear()
+        
+        if len(lista_pedidos_notificar) == 0:
+            widgets.pushButton_17.setStyleSheet(u"background-color: rgb(52, 59, 72);")
+            widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+            widgets.lineEdit_80.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None))
+
+    def verificaPedidoExiste(pedido):
+        if len(pedido) == 6:
+            pedidoInfo = Banco.verificapedidoExiste(pedido)
+        else:
+            pedidoInfo = CommercePlus.verificapedidoExiste(pedido)
+        return pedidoInfo
+        
+    
+    def notificaPedido(self):
+        pedidoControle = widgets.lineEdit_79.text()
+        pedidoControle = int(pedidoControle)
+     
+        if pedidoControle == len(lista_pedidos_notificar) :
+            retorno = Banco.salvaCotacaoNoPedido(lista_pedidos_notificar)
+            if retorno == True:
+                lista_pedidos_notificar.clear()
+                widgets.tableWidget_4.setRowCount(len(lista_pedidos_notificar))
+                row=0
+                for informacoes_tabela in lista_pedidos_notificar:        
+
+                    widgets.tableWidget_4.setItem(row, 0,QTableWidgetItem(str(informacoes_tabela['NPEDIDO'])))
+                    widgets.tableWidget_4.setItem(row, 1,QTableWidgetItem(str(informacoes_tabela['NNFE'])))
+                    widgets.tableWidget_4.setItem(row, 2,QTableWidgetItem(str(informacoes_tabela['CHAVENFE'])))
+        
+                    row=row+1
+                
+                widgets.label_82.setText(QCoreApplication.translate("MainWindow", u"Total : {} pedidos.".format(len(lista_pedidos_notificar)), None))
+                widgets.lineEdit_79.setText(QCoreApplication.translate("MainWindow", u"", None))
+                widgets.pushButton_17.setStyleSheet(u"background-color: rgb(52, 59, 72);")
+                widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+                widgets.lineEdit_80.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None))
+                informativo = Pop_Up('Pedidos salvos com sucesso','PEDIDOS NOTIFICADOS COM SUCESSO.')
+                informativo.show()
+            
+            else:
+                informativo = Pop_Up('ERRO AO SALVAR OS PEDIDOS','ALGO DEU ERRADO')
+                informativo.show()
+        else:
+            informativo = Pop_Up('Número de pedidos cadastrados diferente do informado.','DADOS INVÁLIDOS')
+            informativo.show()
+    
+    def cancelarNotificao(self):
+        lista_pedidos_notificar.clear()
+        widgets.tableWidget_4.setRowCount(len(lista_pedidos_notificar))
+        row=0
+        for informacoes_tabela in lista_pedidos_notificar:        
+
+            widgets.tableWidget_4.setItem(row, 0,QTableWidgetItem(str(informacoes_tabela['NPEDIDO'])))
+            widgets.tableWidget_4.setItem(row, 1,QTableWidgetItem(str(informacoes_tabela['NNFE'])))
+            widgets.tableWidget_4.setItem(row, 2,QTableWidgetItem(str(informacoes_tabela['CHAVENFE'])))
+
+            row=row+1
+        
+        widgets.label_82.setText(QCoreApplication.translate("MainWindow", u"Total : {} pedidos.".format(len(lista_pedidos_notificar)), None))
+        widgets.lineEdit_79.setText(QCoreApplication.translate("MainWindow", u"", None))
+        widgets.pushButton_17.setStyleSheet(u"background-color: rgb(52, 59, 72);")
+        widgets.lineEdit_80.setStyleSheet(u"background-color: rgb(33, 37, 43);")
+        widgets.lineEdit_80.setPlaceholderText(QCoreApplication.translate("MainWindow", u"", None))       
+         
+    def excluirPedido(self):
+        linhaExcluir = widgets.lineEdit_82.text()
+        if linhaExcluir == '':
+            informativo = Pop_Up('Informe o numero da linha.','LINHA INVÁLIDOS')
+            informativo.show()
+        if (len(lista_pedidos_notificar) == 0):
+            pass
+        
+        else:
+            linhaExcluir = int(linhaExcluir)
+            
+            del(lista_pedidos_notificar[linhaExcluir - 1])
+            
+            widgets.tableWidget_4.setRowCount(len(lista_pedidos_notificar))
+            row=0
+            for informacoes_tabela in lista_pedidos_notificar:        
+
+                widgets.tableWidget_4.setItem(row, 0,QTableWidgetItem(str(informacoes_tabela['NPEDIDO'])))
+                widgets.tableWidget_4.setItem(row, 1,QTableWidgetItem(str(informacoes_tabela['NNFE'])))
+                widgets.tableWidget_4.setItem(row, 2,QTableWidgetItem(str(informacoes_tabela['CHAVENFE'])))
+
+                row=row+1
+            
+            widgets.label_82.setText(QCoreApplication.translate("MainWindow", u"Total : {} pedidos.".format(len(lista_pedidos_notificar)), None))
+            widgets.lineEdit_82.clear()
+
+            MainWindow.modificaQuantidadeseguranca(self)
 # ///////////////////////////////////////////////////
 # ////////////// # BUSCAR COTACAO  //////////////////
 # ///////////////////////////////////////////////////
@@ -1483,7 +1686,7 @@ class MainWindow(QMainWindow):
         filtro = str(filtro).upper()
         if filtro == 'TODAS':
             transporte = '*'
-        
+            
         elif filtro == 'RODONAVES':
             transporte = 'RODONAVES'
         elif filtro == 'ALLIEX':
@@ -1494,6 +1697,8 @@ class MainWindow(QMainWindow):
             transporte = 'MID'
         elif filtro == 'DIRECIONAL':
             transporte = 'DIRECIONAL'
+        elif filtro == 'SAO MIGUEL':
+            transporte = 'SAO MIGUEL'
       
         return transporte
 
@@ -1574,6 +1779,7 @@ class MainWindow(QMainWindow):
         # GET BUTTON CLICKED
         btn = self.sender()
         btnName = btn.objectName()
+        
 
         # SHOW HOME PAGE
         if btnName == "btn_home":
@@ -1586,6 +1792,13 @@ class MainWindow(QMainWindow):
             widgets.stackedWidget.setCurrentWidget(widgets.BuscarCotacao)
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            
+        if btnName == "btn_ntf":
+            widgets.stackedWidget.setCurrentWidget(widgets.NotificaremTransporte)
+            UIFunctions.resetStyle(self, btnName)
+            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            
+        
 
         # SHOW NEW PAGE
         if btnName == "btn_new":
