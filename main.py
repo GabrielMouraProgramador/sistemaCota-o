@@ -323,7 +323,6 @@ class Pop_Up(QMainWindow):
         if (msg != ''):
             widgets_PopUp.pushButton.setText(QCoreApplication.translate("MainWindow", u"{}".format(msg), None))
 
-  
 class Ui_AjusteFrete(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -333,8 +332,6 @@ class Ui_AjusteFrete(QMainWindow):
         widgets_informacoes = self.ui
         UIFunctions.uiDefinitions(self)
    
-    
-    
         
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -364,7 +361,9 @@ class MainWindow(QMainWindow):
         widgets.titleRightInfo.setText(description)
         
         
+        #CARREGA INICO
         
+        MainWindow.carrega_inicio(self)
         # TOGGLE MENU
         # ///////////////////////////////////////////////////////////////
         widgets.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
@@ -426,7 +425,12 @@ class MainWindow(QMainWindow):
         widgets.pushButton_7.clicked.connect(self.gerarRelatorioCotacoes)
         widgets.pushButton_6.clicked.connect(self.salvaRelatorio)
         widgets.pushButton_8.clicked.connect(self.limpaTelaRelatorio)
-    
+        
+        
+        #NOTIFICAR PEDIDO
+        widgets.pushButton_20.clicked.connect(self.renotificarPedido)
+
+        
 
         # EXTRA LEFT BOX
         def openCloseLeftBox():
@@ -462,6 +466,101 @@ class MainWindow(QMainWindow):
         widgets.btn_home.setStyleSheet(UIFunctions.selectMenu(widgets.btn_home.styleSheet()))
 
 
+# ///////////////////////////////////////////////////
+# ////////////// # INICO DASHBORDER  ////////////////
+# ///////////////////////////////////////////////////
+    def carrega_inicio(self):
+        PedidosErrosNotificar = Banco.carregaPedidosErroNotifica()
+        widgets.tableWidget.setRowCount(len(PedidosErrosNotificar))
+        
+        row=0
+        for informacoes in PedidosErrosNotificar:        
+            if informacoes[1] != 0:
+                nfe = informacoes[1]
+                
+            elif informacoes[1] == 0:
+                if len(informacoes[2]) == 44:
+                    try:
+                        chavenfe = str(informacoes[2])
+                        nfe = str(f"{chavenfe[29]}{chavenfe[30]}{chavenfe[31]}{chavenfe[32]}{chavenfe[33]}")
+                    except:
+                        pass
+            else:
+                nfe = 0
+                        
+                        
+            widgets.tableWidget_5.setItem(row, 0,QTableWidgetItem(str(informacoes[0])))
+            widgets.tableWidget_5.setItem(row, 1,QTableWidgetItem(str(nfe)))
+            widgets.tableWidget_5.setItem(row, 2,QTableWidgetItem(str(informacoes[2])))
+            
+            row=row+1
+
+        if len(PedidosErrosNotificar) == 0 :
+            widgets.lineEdit_81.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Nem um erro ao notificar :)", None))
+            widgets.lineEdit_81.setStyleSheet(u"background-color: rgb(100, 151, 0);")
+        else:
+            widgets.lineEdit_81.setStyleSheet(u"background-color: rgb(227, 38, 0);")
+            widgets.lineEdit_81.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Pedidos com erros ao notificar.", None))
+        
+        widgets.label_85.setText(QCoreApplication.translate("MainWindow", u"Pedidos erro : {} Pedidos".format(len(PedidosErrosNotificar)), None))    
+        
+    def renotificarPedido(self):
+        numeroPedido = widgets.lineEdit_83.text()
+        numeroNFE = widgets.lineEdit_84.text()
+        
+        pedidoExiste = MainWindow.verificaPedidoExiste(numeroPedido)
+        if (pedidoExiste == True) and (numeroNFE != ''):
+        
+            PedidosErrosNotificar = Banco.carregaPedidosErroNotifica()
+            
+            for pedidos in PedidosErrosNotificar:
+
+                numeroPedidoErro = pedidos[0]
+                numeroNfeErro = pedidos[1]
+                chaveNfeErro = pedidos[2]
+                id_Erro = pedidos[4]
+                
+                if numeroNfeErro == 0:
+                    if len(chaveNfeErro) == 44:
+                        try:
+                            chavenfe = str(chaveNfeErro)
+                            numeroNfeErro = str(f"{chavenfe[29]}{chavenfe[30]}{chavenfe[31]}{chavenfe[32]}{chavenfe[33]}")
+                        except:
+                            pass
+                
+                
+                if str(numeroPedido) == str(numeroPedidoErro):  
+                    Banco.updatePedidoErro(numeroPedido , numeroNFE,id_Erro)
+                    informativo = Pop_Up('Pedido renotificado com sucesso.','PEDIDO NOTIFICADO COM SUCESSO')
+                    informativo.show()
+                    widgets.lineEdit_83.clear()
+                    widgets.lineEdit_84.clear()
+                    widgets.tableWidget_5.clearContents()
+                    MainWindow.carrega_inicio(self)
+                    
+     
+                elif str(numeroNFE) == str(numeroNfeErro):
+                    Banco.updatePedidoErro(numeroPedido , numeroNFE,id_Erro)
+                    informativo = Pop_Up('Pedido renotificado com sucesso.','PEDIDO NOTIFICADO COM SUCESSO')
+                    informativo.show()
+                    widgets.lineEdit_83.clear()
+                    widgets.lineEdit_84.clear()
+                    widgets.tableWidget_5.clearContents()
+                    MainWindow.carrega_inicio(self)
+            
+  
+        else:
+            informativo = Pop_Up('Verifique o numero do Pedido e numero NFE','DADOS INVÁLIDOs.')
+            informativo.show()
+            
+    
+                
+            
+                
+            
+        
+
+        
 # ///////////////////////////////////////////////////
 # ////////////// # NOTIFICAR EM TRANSPORTE  /////////
 # ///////////////////////////////////////////////////
@@ -561,7 +660,6 @@ class MainWindow(QMainWindow):
             pedidoInfo = CommercePlus.verificapedidoExiste(pedido)
         return pedidoInfo
         
-    
     def notificaPedido(self):
         pedidoControle = widgets.lineEdit_79.text()
         pedidoControle = int(pedidoControle)

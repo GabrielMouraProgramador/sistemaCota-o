@@ -453,24 +453,25 @@ class Banco:
            
         return produto_lista
     
+    def insertPedidoNotifica(infoPedidos):
+        try:
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            cursor.execute(f"INSERT INTO notificar_pedidos (pedido, numero_nfe, chave_nfe, notificado) VALUES ('{infoPedidos['NPEDIDO']}','{infoPedidos['NNFE']}','{infoPedidos['CHAVENFE']}','0')")
+            conexao.commit()
+        except Exception as erro:
+            print(erro)
+            pass
+        
+        finally:
+            conexao.close()    
+    
     def salvaCotacaoNoPedido(listaPedidos):
         try:
         
             for infoPedidos in listaPedidos: 
-                try:
-                    conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
-                    cursor = conexao.cursor()
-                    sql = str(f"INSERT INTO notificarPedido(pedido, numero_nfe, chave_nfe, notificado) VALUES ('{infoPedidos['NPEDIDO']}','{infoPedidos['NNFE']}','{infoPedidos['CHAVENFE']}','0')")
-                    cursor.execute(sql)
-                    conexao.commit()
-                    
-
-                except Exception as erro:
-                    print(f"ERRO BANCO salvaCotacaoNoPedido {erro}")
-                    pass
+                Banco.insertPedidoNotifica(infoPedidos)
                 
-                finally:
-                    conexao.close()
             retorno = True
 
         except:
@@ -486,3 +487,31 @@ class Banco:
             retonot =False
         return retonot
 
+    def carregaPedidosErroNotifica():
+        try:
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM notificar_pedidos WHERE notificado = 2")
+            resultado = cursor.fetchall()   
+
+        except Exception as erro:
+            pass
+        
+        finally:
+            conexao.close()
+        return resultado
+    
+    def updatePedidoErro(pedido,numeroNFe,Id):
+        print('entrei no update',pedido,numeroNFe,Id)
+        try:
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            sql = str(f"UPDATE `notificar_pedidos` SET `pedido`='{pedido}',`numero_nfe`='{numeroNFe}',`chave_nfe`='0',`notificado`='0' WHERE id = '{Id}'")
+            cursor.execute(sql)
+            conexao.commit()
+        except Exception as erro:
+            print(erro)
+            pass
+        
+        finally:
+            conexao.close()  

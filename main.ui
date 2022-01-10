@@ -950,7 +950,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/cil-loop-circular.png);</string>
                   </property>
                   <property name="text">
-                   <string>PushButton</string>
+                   <string>Notificar Pedidos</string>
                   </property>
                  </widget>
                 </item>
@@ -1012,7 +1012,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/icon_settings.png);</string>
                   </property>
                   <property name="text">
-                   <string>Left Box</string>
+                   <string>Sub Menu</string>
                   </property>
                  </widget>
                 </item>
@@ -1265,7 +1265,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/cil-share-boxed.png);</string>
                   </property>
                   <property name="text">
-                   <string>Share</string>
+                   <string>Gerar Relatório </string>
                   </property>
                  </widget>
                 </item>
@@ -1300,7 +1300,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/cil-equalizer.png);</string>
                   </property>
                   <property name="text">
-                   <string>Adjustments</string>
+                   <string>Informações Pedido</string>
                   </property>
                  </widget>
                 </item>
@@ -1335,52 +1335,7 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/cil-layers.png);</string>
                   </property>
                   <property name="text">
-                   <string>More</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="extraCenter">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_10">
-                <item>
-                 <widget class="QTextEdit" name="textEdit">
-                  <property name="minimumSize">
-                   <size>
-                    <width>222</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background: transparent;</string>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="html">
-                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff79c6;&quot;&gt;PyDracula&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;An interface created using Python and PySide (support for PyQt), and with colors based on the Dracula theme created by Zeno Rocha.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;MIT License&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#bd93f9;&quot;&gt;Created by: Wanderson M. Pimenta&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff79c6;&quot;&gt;Convert UI&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#ffffff;&quot;&gt;pyside6-uic main.ui &amp;gt; ui_main.py&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff79c6;&quot;&gt;Convert QRC&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#ffffff;&quot;&gt;pyside6-rcc resources.qrc -o resources_rc.py&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>mais</string>
                   </property>
                  </widget>
                 </item>
@@ -1790,17 +1745,202 @@ p, li { white-space: pre-wrap; }
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="Inicio">
                       <property name="enabled">
                        <bool>true</bool>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">background-image: url(:/images/images/images/PyDracula_vertical.png);
-background-position: center;
-background-repeat: no-repeat;</string>
+                       <string notr="true"/>
                       </property>
+                      <layout class="QGridLayout" name="gridLayout_10">
+                       <item row="0" column="0">
+                        <layout class="QHBoxLayout" name="horizontalLayout_59">
+                         <item>
+                          <widget class="QWidget" name="verticalWidget_2" native="true">
+                           <property name="maximumSize">
+                            <size>
+                             <width>460</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_64">
+                            <item>
+                             <widget class="QWidget" name="verticalWidget_2" native="true">
+                              <property name="enabled">
+                               <bool>false</bool>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_62">
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_81">
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                 <property name="echoMode">
+                                  <enum>QLineEdit::NoEcho</enum>
+                                 </property>
+                                 <property name="placeholderText">
+                                  <string>Pedidos com erros de notificação</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QTableWidget" name="tableWidget_5">
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>312</height>
+                               </size>
+                              </property>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <row>
+                               <property name="text">
+                                <string/>
+                               </property>
+                              </row>
+                              <column>
+                               <property name="text">
+                                <string>Pedido</string>
+                               </property>
+                              </column>
+                              <column>
+                               <property name="text">
+                                <string>Numero NFe</string>
+                               </property>
+                              </column>
+                              <column>
+                               <property name="text">
+                                <string>Chave NFe</string>
+                               </property>
+                              </column>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_85">
+                              <property name="text">
+                               <string>Pedidos erro : 0 Pedidos</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_65">
+                              <item>
+                               <widget class="QLabel" name="label_83">
+                                <property name="text">
+                                 <string>Numero Pedido</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLineEdit" name="lineEdit_83">
+                                <property name="styleSheet">
+                                 <string notr="true">background-color: rgb(33, 37, 43);</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_84">
+                                <property name="text">
+                                 <string>Numero NFe</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLineEdit" name="lineEdit_84">
+                                <property name="styleSheet">
+                                 <string notr="true">background-color: rgb(33, 37, 43);</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="pushButton_20">
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(0, 40, 0);</string>
+                              </property>
+                              <property name="text">
+                               <string>Renotificar Pedido</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QWidget" name="verticalWidget_3" native="true">
+                           <layout class="QVBoxLayout" name="verticalLayout_65">
+                            <item>
+                             <widget class="QLabel" name="label_86">
+                              <property name="text">
+                               <string/>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_87">
+                              <property name="text">
+                               <string>TextLabel</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_88">
+                              <property name="text">
+                               <string>TextLabel</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
                      </widget>
                      <widget class="QWidget" name="consulataPedido">
                       <layout class="QGridLayout" name="gridLayout_8">
@@ -3587,7 +3727,7 @@ background-repeat: no-repeat;</string>
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>534</width>
+                               <width>790</width>
                                <height>659</height>
                               </rect>
                              </property>
@@ -6721,7 +6861,6 @@ background-repeat: no-repeat;</string>
   <tabstop>btn_share</tabstop>
   <tabstop>btn_adjustments</tabstop>
   <tabstop>btn_more</tabstop>
-  <tabstop>textEdit</tabstop>
   <tabstop>settingsTopBtn</tabstop>
   <tabstop>minimizeAppBtn</tabstop>
   <tabstop>maximizeRestoreAppBtn</tabstop>
