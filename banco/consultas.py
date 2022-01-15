@@ -275,8 +275,8 @@ class Banco:
         finally:
             conexao.close()
             
-    def salvaCotacaoNoPedido(TRANSPORTADORA=dict()):
-        
+    def salvaCotacaoNoPedido_TELACOTACAO(TRANSPORTADORA=dict()):
+        print('entreiBanco')
         try:
             DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
@@ -515,3 +515,33 @@ class Banco:
         
         finally:
             conexao.close()  
+
+    def alteraTransportdoraNoBanco(pedido,numeroCotacao,prazo,valor):
+        
+        try:
+            
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            
+            sql = (f"INSERT INTO `rodonaves_transportadora`(`PEDIDO`, `N_COTACAO`, `VALOR`, `PRAZO`, `MEDIDAS`) VALUES ('{pedido}','{numeroCotacao}','{valor}','{prazo}','COTACAO MANUAL')")
+
+            cursor.execute(sql)
+            conexao.commit()
+            
+
+        except:
+            pass
+        
+        try:
+            DATA_AUTAL = strftime("%Y-%m-%d")
+            conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
+            cursor = conexao.cursor()
+            cursor.execute(f"UPDATE `rodonaves_transportadora` SET `PEDIDO`='{pedido}',`N_COTACAO`='{numeroCotacao}',`VALOR`='{valor}',`PRAZO`='{prazo}',`MEDIDAS`='COTACAO MANUAL' WHERE `PEDIDO`='{pedido}'")
+            conexao.commit()
+
+        except Exception as erro:
+            print(f"ERRO BANCO {erro}")
+            pass
+        finally:
+            conexao.close()
+    

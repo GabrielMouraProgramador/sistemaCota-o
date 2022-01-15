@@ -715,6 +715,31 @@ class Ui_Ui_VinculaPedidoManual(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_6)
 
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.label_6 = QLabel(self.verticalFrame)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_8.addWidget(self.label_6)
+
+        self.lineEdit_2 = QLineEdit(self.verticalFrame)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+
+        self.horizontalLayout_8.addWidget(self.lineEdit_2)
+
+        self.label_5 = QLabel(self.verticalFrame)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_8.addWidget(self.label_5)
+
+        self.lineEdit_5 = QLineEdit(self.verticalFrame)
+        self.lineEdit_5.setObjectName(u"lineEdit_5")
+
+        self.horizontalLayout_8.addWidget(self.lineEdit_5)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_8)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.pushButton = QPushButton(self.verticalFrame)
@@ -779,6 +804,8 @@ class Ui_Ui_VinculaPedidoManual(object):
 
         self.label_4.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Frete Cliente", None))
         self.label_3.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Frete Transportadora", None))
+        self.label_6.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Cotacao", None))
+        self.label_5.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Prazo", None))
         self.pushButton.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Salvar", None))
         self.pushButton_2.setText(QCoreApplication.translate("Ui_VinculaPedidoManual", u"Cancelar", None))
     # retranslateUi
