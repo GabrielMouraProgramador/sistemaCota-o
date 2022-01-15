@@ -95,7 +95,7 @@ class VincularCotaccao(QMainWindow):
         else:
             frete_pedido = CommercePlus.getFrete(numeroPedido)
 
-        Banco.alteraTransportdoraNoBanco(numeroPedido,self.COTACAO,self.PRAZO,self.VALOR)
+        Banco.salvaCotacaoMAnual(numeroPedido,self.COTACAO,self.PRAZO,self.VALOR,self.transporte)
         
         TRANSPORTADORA = dict()
         TRANSPORTADORA['PEDIDO'] = numeroPedido
@@ -299,7 +299,7 @@ class VincularCotacaoManuel(QMainWindow):
         except:
             estado = 'ESTADO'
             
-        Banco.alteraTransportdoraNoBanco(Pedido,numeroCotacao,prazo,frete_Transporte)
+        Banco.salvaCotacaoMAnual(Pedido,numeroCotacao,prazo,frete_Transporte,Transportadora)
         
         TRANSPORTADORA = dict()
         TRANSPORTADORA['PEDIDO'] = Pedido

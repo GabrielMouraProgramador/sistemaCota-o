@@ -14,7 +14,7 @@ from PySide6.QtWidgets import *  # type: ignore
 
 from . resources_rc import *
 
-class Ui_Ui_VinculaPedidoManual(object):
+class Ui_VinculaPedidoManual(object):
     def setupUi(self, Ui_VinculaPedidoManual):
         if not Ui_VinculaPedidoManual.objectName():
             Ui_VinculaPedidoManual.setObjectName(u"Ui_VinculaPedidoManual")

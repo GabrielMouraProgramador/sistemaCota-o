@@ -516,14 +516,28 @@ class Banco:
         finally:
             conexao.close()  
 
-    def alteraTransportdoraNoBanco(pedido,numeroCotacao,prazo,valor):
+    def salvaCotacaoMAnual(pedido,numeroCotacao,prazo,valor,transportadora):
+        transportadora = str(transportadora).upper()
+        if 'RODONAVES' in transportadora:
+            db_transporte = 'rodonaves_transportadora'     
+        elif 'MIGUEL' in transportadora:
+            db_transporte = 'sao_miguel_transportadora'
+        elif 'ALLIEX' in transportadora:
+            db_transporte = 'alliex_transportadora'
+        elif 'TRANSREIS' in transportadora:
+            db_transporte = 'transreis_transportadora'
+        elif 'MID' in transportadora:
+            db_transporte = 'mid_transportadora'
+        elif 'DIRECIONAL' in transportadora:
+            db_transporte = 'direcional_transportadora'
+        else:
+            db_transporte =''
         
-        try:
-            
+        try:         
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
             
-            sql = (f"INSERT INTO `rodonaves_transportadora`(`PEDIDO`, `N_COTACAO`, `VALOR`, `PRAZO`, `MEDIDAS`) VALUES ('{pedido}','{numeroCotacao}','{valor}','{prazo}','COTACAO MANUAL')")
+            sql = (f"INSERT INTO `{db_transporte}`(`PEDIDO`, `N_COTACAO`, `VALOR`, `PRAZO`, `MEDIDAS`) VALUES ('{pedido}','{numeroCotacao}','{valor}','{prazo}','COTACAO MANUAL')")
 
             cursor.execute(sql)
             conexao.commit()
@@ -533,7 +547,6 @@ class Banco:
             pass
         
         try:
-            DATA_AUTAL = strftime("%Y-%m-%d")
             conexao = pymysql.connect(db='wwpneu_Cotacao', user='wwpneu_02', passwd='xSA]FB+PH7Wl' ,host='162.214.74.29' , port=3306)
             cursor = conexao.cursor()
             cursor.execute(f"UPDATE `rodonaves_transportadora` SET `PEDIDO`='{pedido}',`N_COTACAO`='{numeroCotacao}',`VALOR`='{valor}',`PRAZO`='{prazo}',`MEDIDAS`='COTACAO MANUAL' WHERE `PEDIDO`='{pedido}'")
@@ -544,4 +557,7 @@ class Banco:
             pass
         finally:
             conexao.close()
+    
+
+        
     
