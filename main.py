@@ -107,7 +107,7 @@ class VincularCotaccao(QMainWindow):
         TRANSPORTADORA['FRETECLIENTEMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
         TRANSPORTADORA['FRETETRANSPORTADORAMODIFICACAO'] = str(f"PEDIDO VINCULADO MANUALMENTE")
         
-        
+        Banco.alteraTransportdoraNoBanco(TRANSPORTADORA)
         
     
     
